@@ -6,5 +6,10 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'app-eorm-buenos-aires';
+  title = 'MUNDO';
+
+
+  accionBoton(){
+    alert('le diste click al boton');
+  }
 }
