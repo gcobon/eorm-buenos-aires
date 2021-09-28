@@ -1,1 +1,30 @@
-<p>admin works!</p>
+<div class="layout">
+  <div class="header"></div>
+  <div class="layout">
+    <div class="sider">
+      <div class="logo" routerLink="/home">
+        <i class="fas fa-home fs-1"></i>
+      </div>
+      <ul class="list-group bg-dark ">
+        <li class="list-group-item list-group-item-dark" routerLink="users" routerLinkActive="active">
+          <i class="fas fa-users-cog"></i>  Usuarios
+        </li>
+        <li class="list-group-item list-group-item-dark" routerLink="professors" routerLinkActive="active">
+          <i class="fas fa-user-tie"></i>  Profesores
+        </li>
+        <li class="list-group-item list-group-item-dark" routerLink="students" routerLinkActive="active">
+         <i class="fas fa-user-graduate"></i>  Estudiantes
+        </li>
+        <li class="list-group-item list-group-item-dark" routerLinkActive="active">
+         <i class="fas fa-book"></i>  Calificaciones
+        </li>
+      </ul>
+    </div>
+    <div class="content">
+      <div class="inner-content">
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+  </div>
+</div>
+

@@ -52,3 +52,47 @@
   --bs-body-color: #212529;
   --bs-body-bg: #fff;
 }
+
+
+/* Home - admin */
+.layout{
+  width: 100%;
+  height: 100vh;
+}
+
+.layout:nth-child(2) {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  position: fixed;
+}
+
+.header {
+  background: var(--bs-gray-dark);
+  color: #fff;
+  height: 64px;
+  max-height: 64px;
+}
+
+.sider {
+  background: var(--bs-gray-dark);
+  color: #fff !important;
+  line-height: 50px;
+}
+
+.logo{
+  text-align: center;
+  cursor: pointer;
+}
+
+.content {
+  background: #f0f2f5;
+  padding: 15px;
+  min-height: 120px;
+  line-height: 120px;
+}
+
+.inner-content{
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+}
