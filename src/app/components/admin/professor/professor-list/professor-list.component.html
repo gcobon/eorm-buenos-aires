@@ -1,0 +1,47 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col mt-2">
+      <button class="btn btn-primary">Nuevo profesor</button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col mt-2">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nombres</th>
+            <th scope="col">Apellidos</th>
+            <th scope="col">Dpi</th>
+            <th scope="col">F. Nacimiento</th>
+            <th scope="col">Sexo</th>
+            <th scope="col">Télefono</th>
+            <th scope="col">Email</th>
+            <th scope="col">Opciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let profesor of profesores let i = index">
+            <th scope="row">{{i+1}}</th>
+            <td>{{profesor.primerNombre}} {{profesor.segundoNombre}}</td>
+            <td>{{profesor.primerApellido}} {{profesor.segundoApellido}}</td>
+            <td>{{profesor.dpiProfesor}}</td>
+            <td>{{profesor.fechaNacimiento |date: 'dd/MM/yyyy'}}</td>
+            <td>{{profesor.sexo}}</td>
+            <td>{{profesor.telefono}}</td>
+            <td>{{profesor.email}}</td>
+            <td>
+              <button class="btn btn-secondary btn-sm">
+                <i class="fas fa-edit"></i>
+              </button>
+              <button class="btn btn-danger btn-sm ms-1">
+                <i class="fas fa-trash-alt"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+

@@ -7,6 +7,7 @@ const routes: Routes = [
     path: '',
     component: AdminComponent,
     children: [
+      { path: '', redirectTo: 'users', pathMatch: 'full' },
       {
         path: 'users',
         loadChildren: () =>
@@ -15,7 +16,7 @@ const routes: Routes = [
       {
         path: 'professors',
         loadChildren: () =>
-          import('./profesor/profesor.module').then((m) => m.ProfesorModule),
+          import('./professor/professor.module').then((m) => m.ProfesorModule),
       },
       {
         path: 'students',
