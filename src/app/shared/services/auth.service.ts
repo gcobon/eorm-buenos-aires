@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import AuthData from '../models';
+import { AuthData } from '../../shared/models';
 import { environment } from './../../../environments/environment';
 
 @Injectable({

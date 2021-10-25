@@ -1,3 +1,5 @@
+import { Professor } from './professor.interface';
 import { AuthData } from './auth.interface';
+import { User } from './user.interface';
 
-export default AuthData;
+export { AuthData, User, Professor };

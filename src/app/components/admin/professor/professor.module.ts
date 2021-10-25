@@ -4,16 +4,20 @@ import { CommonModule } from '@angular/common';
 import { ProfesorRoutingModule } from './professor-routing.module';
 import { ProfesorComponent } from './professor.component';
 import { ProfessorListComponent } from './professor-list/professor-list.component';
+import { ProfessorFormComponent } from './professor-form/professor-form.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
   declarations: [
     ProfesorComponent,
-    ProfessorListComponent
+    ProfessorListComponent,
+    ProfessorFormComponent
   ],
   imports: [
     CommonModule,
-    ProfesorRoutingModule
+    ProfesorRoutingModule,
+    ReactiveFormsModule
   ]
 })
 export class ProfesorModule { }

@@ -1,7 +1,9 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col mt-2">
-      <button class="btn btn-primary">Nuevo usuario</button>
+      <button class="btn btn-primary" routerLink="/admin/users/user-form">
+        Nuevo usuario
+      </button>
     </div>
   </div>
   <div class="row">
@@ -17,16 +19,21 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let usuario of usuarios; let i = index">
-            <th scope="row">{{i+1}}</th>
-            <td>{{usuario.usuario}}</td>
-            <td>{{usuario.rol}}</td>
-            <td [ngClass]="{'success': usuario.enabled, 'danger': !usuario.enabled}">{{usuario.enabled ? 'Activo' : 'Inactivo'}}</td>
+          <tr *ngFor="let user of users; let i = index">
+            <th scope="row">{{ i + 1 }}</th>
+            <td>{{ user.nombre_usuario }}</td>
+            <td>{{ user.roles ? user.roles : "N/A" }}</td>
+            <td [ngClass]="{ success: user.enabled, danger: !user.enabled }">
+              {{ user.enabled ? "Activo" : "Inactivo" }}
+            </td>
             <td>
-              <button class="btn btn-secondary btn-sm">
+              <button
+                class="btn btn-secondary btn-sm"
+                (click)="onOpenEditUser(user.id!)"
+              >
                 <i class="fas fa-edit"></i>
               </button>
-              <button class="btn btn-danger btn-sm ms-1">
+              <button class="btn btn-danger btn-sm ms-1" (click)="onDeleteUser(user.id!)">
                 <i class="fas fa-trash-alt"></i>
               </button>
             </td>

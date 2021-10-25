@@ -1,8 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from './../../shared/services/auth.service';
-import { tap } from 'rxjs/operators'
-import AuthData from 'src/app/shared/models';
+import { AuthData } from '../../shared/models';
 
 @Component({
   selector: 'app-auth',
@@ -14,7 +13,7 @@ export class AuthComponent implements OnInit {
   public loginFalse!: boolean;
   private usuario = localStorage.getItem('usuario');
 
-  @ViewChild('form', {static: false}) form!: ElementRef<HTMLFormElement>;
+  @ViewChild('form', { static: false }) form!: ElementRef<HTMLFormElement>;
 
   constructor(private fb: FormBuilder, private authService: AuthService) {
     this.initForm();
@@ -49,14 +48,14 @@ export class AuthComponent implements OnInit {
 
     const result = this.authService.login(authData);
 
-    if(!result){
+    if (!result) {
       this.loginFalse = true;
       return;
     }
 
-    if(authData.recuerdame){
+    if (authData.recuerdame) {
       localStorage.setItem('usuario', authData.usuario);
-    }else{
+    } else {
       localStorage.removeItem('usuario');
     }
   }
