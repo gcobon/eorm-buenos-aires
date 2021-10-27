@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
 
-  url_base: 'http://localhost:400'
+  url_base: 'https://proyectoeorm.herokuapp.com/api',
 };
 
 /*

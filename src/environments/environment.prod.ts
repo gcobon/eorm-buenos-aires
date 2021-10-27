@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
 
-  url_base: 'http://heroku.oerm.buenos-aires.app'
+  url_base: 'https://proyectoeorm.herokuapp.com/api',
 };
 

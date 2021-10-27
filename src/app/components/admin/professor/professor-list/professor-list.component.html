@@ -1,0 +1,65 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col mt-2">
+      <button
+        class="btn btn-primary"
+        routerLink="/admin/professors/professor-form"
+      >
+        Nuevo profesor
+      </button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col mt-2">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nombres</th>
+            <th scope="col">Apellidos</th>
+            <th scope="col">Dpi</th>
+            <th scope="col">F. Nacimiento</th>
+            <th scope="col">Sexo</th>
+            <th scope="col">Télefono</th>
+            <th scope="col">Email</th>
+            <th scope="col">Opciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let profesor of professors; let i = index">
+            <th scope="row">{{ i + 1 }}</th>
+            <td>
+              {{ profesor.primer_nombre_profesor }}
+              {{ profesor.segundo_nombre_profesor }}
+            </td>
+            <td>
+              {{ profesor.primer_apellido_profesor }}
+              {{ profesor.segundo_apellido_profesor }}
+            </td>
+            <td>{{ profesor.dpi_profesor }}</td>
+            <td>
+              {{ profesor.fecha_nacimiento_profesor | date: "dd/MM/yyyy" }}
+            </td>
+            <td>{{ profesor.sexo_profesor }}</td>
+            <td>{{ profesor.telefono_profesor }}</td>
+            <td>{{ profesor.email_profesor }}</td>
+            <td>
+              <button
+                class="btn btn-secondary btn-sm"
+                (click)="onOpenEditProfessor(profesor.id!)"
+              >
+                <i class="fas fa-edit"></i>
+              </button>
+              <button
+                class="btn btn-danger btn-sm ms-1"
+                (click)="onDeleteProfessor(profesor.id!)"
+              >
+                <i class="fas fa-trash-alt"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

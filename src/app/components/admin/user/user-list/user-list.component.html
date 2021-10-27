@@ -1,0 +1,45 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col mt-2">
+      <button class="btn btn-primary" routerLink="/admin/users/user-form">
+        Nuevo usuario
+      </button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col mt-2">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Usuario</th>
+            <th scope="col">Role</th>
+            <th scope="col">Estado</th>
+            <th scope="col">Opciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let user of users; let i = index">
+            <th scope="row">{{ i + 1 }}</th>
+            <td>{{ user.nombre_usuario }}</td>
+            <td>{{ user.roles ? user.roles : "N/A" }}</td>
+            <td [ngClass]="{ success: user.enabled, danger: !user.enabled }">
+              {{ user.enabled ? "Activo" : "Inactivo" }}
+            </td>
+            <td>
+              <button
+                class="btn btn-secondary btn-sm"
+                (click)="onOpenEditUser(user.id!)"
+              >
+                <i class="fas fa-edit"></i>
+              </button>
+              <button class="btn btn-danger btn-sm ms-1" (click)="onDeleteUser(user.id!)">
+                <i class="fas fa-trash-alt"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
