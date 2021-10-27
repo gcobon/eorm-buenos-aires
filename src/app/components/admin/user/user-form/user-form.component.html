@@ -1,0 +1,81 @@
+<div class="container">
+  <div class="row">
+    <div class="col-12 mt-5">
+      <h3>{{ title }}</h3>
+    </div>
+  </div>
+  <form
+    class="form needs-validation mt-3"
+    [formGroup]="userForm"
+    novalidate
+    (ngSubmit)="onAction()"
+    #form
+  >
+    <div class="row gy-4">
+      <div class="col-12">
+        <label for="nombre_usuario" class="form-label">Nombre usuario</label>
+        <input
+          type="text"
+          class="form-control"
+          formControlName="nombre_usuario"
+          id="nombre_usuario"
+          placeholder="Nombre usuario"
+          autocomplete="off"
+          required
+        />
+        <div class="invalid-feedback">Debe ingresar nombre de usuario</div>
+      </div>
+      <div class="col-12">
+        <label for="contrasena" class="form-label">Contraseña</label>
+        <input
+          type="password"
+          class="form-control"
+          formControlName="contraseña_usuario"
+          id="contrasena"
+          placeholder="Contraseña"
+          autocomplete="off"
+          required
+        />
+        <div class="invalid-feedback">Debe ingresar su contraseña</div>
+      </div>
+      <div class="col-12">
+        <label for="enabled" class="form-label">Estado</label>
+        <select
+          class="form-select"
+          aria-label="Estado del usuario"
+          formControlName="enabled"
+          id="enabled"
+          name="enabled"
+          required
+        >
+          <option selected disabled value="">Seleccione una opción</option>
+          <option value="true">Activo</option>
+          <option value="false">Inactivo</option>
+        </select>
+        <div class="invalid-feedback">Debe seleccionar un estado</div>
+      </div>
+      <div class="col-12">
+        <div class="row">
+          <div class="col-6">
+            <div class="d-grid">
+              <button
+                type="button"
+                class="btn btn-danger btn-lg"
+                (click)="onCancel()"
+              >
+                Cancelar
+              </button>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="d-grid">
+              <button type="submit" class="btn btn-primary btn-lg">
+                {{ action }}
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

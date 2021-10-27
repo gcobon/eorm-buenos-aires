@@ -1,1 +1,25 @@
-<p>home works!</p>
+<div class="layout">
+  <div class="header"></div>
+  <div class="layout">
+    <div class="sider">
+      <div class="logo" routerLink="/home" >
+        <H1>EORM</H1>
+      </div>
+      <ul class="list-group bg-dark ">
+        <li class="list-group-item list-group-item-dark" routerLink="/home" routerLinkActive="active">
+          <i class="fas fa-list-alt"></i>  Cursos</li>
+        <li class="list-group-item list-group-item-dark" routerLink="/notes" routerLinkActive="active">
+          <i class="fas fa-tasks"></i>  Notas
+        </li>
+        <li class="list-group-item list-group-item-dark" routerLink="/admin" routerLinkActive="active">
+         <i class="fas fa-cog"></i>  Configuración
+        </li>
+      </ul>
+    </div>
+    <div class="content">
+      <div class="inner-content">
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+  </div>
+</div>

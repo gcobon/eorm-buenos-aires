@@ -1,0 +1,23 @@
+.container-fluid{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--bs-dark);
+  height: 100vh;
+}
+
+.form{
+  width: 100%;
+  height: auto;
+  max-width: 450px;
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 10px;
+  border: 1px solid #f0f2f5;
+}
+
+@media screen and (max-width: 576px) {
+  .form{
+    padding: 20px;
+  }
+}
