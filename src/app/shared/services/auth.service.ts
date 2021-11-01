@@ -1,77 +1,41 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthData } from '../../shared/models';
+import Swal from 'sweetalert2';
+import { AuthData, AuthResponse } from '../../shared/models';
 import { environment } from './../../../environments/environment';
+
+const url_base = environment.url_base;
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  private url = environment.url_base;
+  constructor(private router: Router, private http: HttpClient) {}
 
-  private usuarios = [
-    {
-      id_usuario: 1,
-      usuario: 'juan',
-      password: '123456',
-      enabled: true,
-      rol: 'profesor',
-    },
-    {
-      id_usuario: 2,
-      usuario: 'jose',
-      password: '123456',
-      enabled: true,
-      rol: 'estudiante',
-    },
-    {
-      id_usuario: 3,
-      usuario: 'ricardo',
-      password: '123456',
-      enabled: true,
-      rol: 'estudiante',
-    },
-    {
-      id_usuario: 4,
-      usuario: 'maria',
-      password: '123456',
-      enabled: true,
-      rol: 'profesor',
-    },
-    {
-      id_usuario: 5,
-      usuario: 'josefina',
-      password: '123456',
-      enabled: true,
-      rol: 'profesor',
-    },
-  ];
+  login(authData: AuthData) {
+    this.http
+      .post<AuthResponse>(`${url_base}/auth/login`, authData)
+      .subscribe((res) => {
+        const token = res.token;
+        let payload;
 
-  constructor(private router: Router) {}
+        if (token) {
+          payload = JSON.parse(atob(token.split('.')[1]));
 
-  login(authData: AuthData): boolean {
-    const usuario = this.usuarios.find((us) => us.usuario === authData.usuario);
+          localStorage.setItem('token', res.token);
+          localStorage.setItem('auth', JSON.stringify(payload));
+        }
 
-    if (!usuario) {
-      return false;
-    }
+        if (authData.recuerdame) {
+          localStorage.setItem('usuario', authData.nombreUsuario);
+        } else {
+          localStorage.removeItem('usuario');
+        }
 
-    if (usuario.password === authData.password) {
-      switch (usuario.rol) {
-        case 'estudiante':
-          this.router.navigate(['/home']);
-          break;
-        case 'profesor':
-          this.router.navigate(['/admin']);
-          break;
-        default:
-          alert('rol no adminitdo');
-          break;
-      }
+        this.router.navigate(['/home']);
 
-      return true;
-    }
-
-    return false;
+        Swal.fire('Hola!', `Bienvenido ${authData.nombreUsuario}`);
+      });
   }
 }

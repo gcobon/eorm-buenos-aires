@@ -21,12 +21,12 @@ export class UserService {
   }
 
   saveUser(userData: User): Observable<User> {
-    return this.http.post<User>(`${url_base}/usuarios/crear`, userData);
+    return this.http.post<User>(`${url_base}/auth/nuevo`, userData);
   }
 
   updateUser(userData: User): Observable<User> {
     return this.http.put<User>(
-      `${url_base}/usuarios/actualizar/${userData.id}`,
+      `${url_base}/usuarios/actualizar/${userData}`,
       userData
     );
   }
