@@ -23,7 +23,7 @@ export class AuthComponent implements OnInit {
 
   initForm(): void {
     this.loginForm = this.fb.group({
-      usuario: [this.usuario, Validators.required],
+      nombreUsuario: [this.usuario, Validators.required],
       password: [null, Validators.required],
       recuerdame: [this.usuario ? true : false],
     });
@@ -46,17 +46,6 @@ export class AuthComponent implements OnInit {
 
     const authData: AuthData = this.loginForm.value;
 
-    const result = this.authService.login(authData);
-
-    if (!result) {
-      this.loginFalse = true;
-      return;
-    }
-
-    if (authData.recuerdame) {
-      localStorage.setItem('usuario', authData.usuario);
-    } else {
-      localStorage.removeItem('usuario');
-    }
+    this.authService.login(authData);
   }
 }

@@ -24,21 +24,9 @@ export class UserListComponent implements OnInit {
         const data = user;
 
         this.users = data.map((us) => {
-          return {
-            ...us,
-            roles: us.roles?.toString(),
-          };
+          return new User(us.nombre, us.nombreUsuario, us.email, us.roles, '', us.id);
         });
       },
-      (error) => {
-        console.log(error);
-
-        Swal.fire({
-          title: 'Error',
-          icon: 'error',
-        });
-      },
-      () => null
     );
   }
 

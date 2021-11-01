@@ -1,8 +1,17 @@
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  OnInit,
+  ViewChild,
+  OnDestroy,
+} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from 'src/app/shared/services/user.service';
-import { User } from 'src/app/shared/models';
+import { RoleService } from 'src/app/shared/services/role.service';
+import { User, Role } from 'src/app/shared/models';
+import { Subscription } from 'rxjs';
+import { tap } from 'rxjs/operators';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -10,24 +19,38 @@ import Swal from 'sweetalert2';
   templateUrl: './user-form.component.html',
   styleUrls: ['./user-form.component.css'],
 })
-export class UserFormComponent implements OnInit {
+export class UserFormComponent implements OnInit, OnDestroy {
   public title = 'Crear usuario';
   public action: 'Guardar' | 'Actualizar' = 'Guardar';
   public userForm!: FormGroup;
+  public roles!: Role[];
+  public rolesCheck = {
+    admin: false,
+    profesor: false,
+    estudiante: false,
+  };
+  public roleSelected: string[] = [];
   private id!: number;
+  private subs = new Subscription();
   @ViewChild('form', { static: false }) form!: ElementRef<HTMLFormElement>;
 
   constructor(
     private fb: FormBuilder,
     private router: Router,
     private route: ActivatedRoute,
-    private userService: UserService
+    private userService: UserService,
+    private roleService: RoleService
   ) {
     this.id = this.route.snapshot.params.id;
     this.initForm();
   }
 
+  ngOnDestroy(): void {
+    this.subs.unsubscribe();
+  }
+
   ngOnInit(): void {
+    this.getRoles();
     if (this.id) {
       this.getOneUser(this.id);
       this.title = 'Actualizar usuario';
@@ -37,12 +60,30 @@ export class UserFormComponent implements OnInit {
 
   initForm(): void {
     this.userForm = this.fb.group({
-      nombre_usuario: [null, Validators.required],
-      contraseña_usuario: [null, Validators.required],
-      enabled: ['', Validators.required],
+      nombre: [null, Validators.required],
+      nombreUsuario: [null, Validators.required],
+      email: [null, [Validators.required, Validators.email]],
+      password: [null, Validators.required],
     });
   }
 
+  /**
+   * Obtiene los roles
+   */
+  getRoles(): void {
+    this.roleService.getRoles().subscribe((res) => {
+      this.roles = res.map((rol) => {
+        return {
+          ...rol,
+          checked: false,
+        };
+      });
+    });
+  }
+
+  /**
+   * Cancelar la operación
+   */
   async onCancel(): Promise<void> {
     const { isConfirmed } = await Swal.fire({
       title: 'Cancelar',
@@ -58,9 +99,20 @@ export class UserFormComponent implements OnInit {
     }
   }
 
+  updateRolSelected(role: string) {
+    if (this.roleSelected.includes(role)) {
+      this.roleSelected = this.roleSelected.filter((e) => e !== role);
+    } else {
+      this.roleSelected.push(role);
+    }
+  }
+
   onAction(): void {
     if (this.userForm.valid) {
-      const userData: User = this.userForm.value;
+      const userData = this.userForm.value;
+      userData.roles = this.roleSelected;
+
+      console.log(userData);
 
       switch (this.action) {
         case 'Guardar':
@@ -106,8 +158,7 @@ export class UserFormComponent implements OnInit {
     this.userService.getOneUser(id).subscribe(
       (user) => {
         this.userForm.patchValue({
-          nombre_usuario: user.nombre_usuario,
-          enabled: user.enabled,
+          nombre_usuario: user.nombre,
         });
       },
       (error) => {
