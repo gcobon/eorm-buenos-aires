@@ -1,5 +1,6 @@
+import { Role, Authorities } from './role.interface';
 import { Professor } from './professor.interface';
-import { AuthData } from './auth.interface';
-import { User } from './user.interface';
+import { AuthData, AuthResponse } from './auth.interface';
+import { User } from './user.model';
 
-export { AuthData, User, Professor };
+export { AuthData, AuthResponse, User, Role, Authorities, Professor };
