@@ -1,3 +1,4 @@
+import { Role } from 'src/app/shared/models';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from './../../../../shared/services/user.service';
@@ -19,15 +20,20 @@ export class UserListComponent implements OnInit {
   }
 
   getUsuarios() {
-    this.userService.getUsers().subscribe(
-      (user) => {
-        const data = user;
+    this.userService.getUsers().subscribe((user) => {
+      const data = user;
 
-        this.users = data.map((us) => {
-          return new User(us.nombre, us.nombreUsuario, us.email, us.roles, '', us.id);
-        });
-      },
-    );
+      this.users = data.map((us) => {
+        return new User(
+          us.nombre,
+          us.nombreUsuario,
+          us.email,
+          us.roles,
+          '',
+          us.id
+        );
+      });
+    });
   }
 
   onOpenEditUser(id: number) {
