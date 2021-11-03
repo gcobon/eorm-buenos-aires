@@ -1,0 +1,57 @@
+<div class="container">
+    <div class="row">
+      <div class="col-12 mt-5">
+        <h3>{{ title }}</h3>
+      </div>
+    </div>
+    <form
+      class="form needs-validation mt-3"
+      [formGroup]="gradeForm"
+      novalidate
+      (ngSubmit)="onAction()"
+      #form
+    >
+      <div class="row gy-4">
+        <!--Nombre grado -->
+        <div class="col-3">
+          <label for="nombre_grado" class="form-label"
+            >Nombre Grado <span class="danger">*</span></label
+          >
+          <input
+            type="text"
+            class="form-control"
+            formControlName="nombre_grado"
+            id="nombre_grado"
+            placeholder="nombre grado"
+            autocomplete="off"
+            required
+          />
+          <div class="invalid-feedback">Campo requerido</div>
+        </div>
+        
+        <!-- Action -->
+        <div class="col-12">
+          <div class="row">
+            <div class="col-6">
+              <div class="d-grid">
+                <button
+                  type="button"
+                  class="btn btn-danger btn-lg"
+                  (click)="onCancel()"
+                >
+                  Cancelar
+                </button>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="d-grid">
+                <button type="submit" class="btn btn-primary btn-lg">
+                  {{ action }}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>

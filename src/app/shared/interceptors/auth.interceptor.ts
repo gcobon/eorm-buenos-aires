@@ -21,7 +21,8 @@ export class AuthInterceptor implements HttpInterceptor {
     const token = localStorage.getItem('token') || null;
 
     const ContentType = [
-      'application/json'
+      'application/json',
+      
     ];
 
     let req = request;
