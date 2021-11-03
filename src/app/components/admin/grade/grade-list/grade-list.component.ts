@@ -7,15 +7,11 @@ import Swal from 'sweetalert2';
 @Component({
   selector: 'app-grade-list',
   templateUrl: './grade-list.component.html',
-  styleUrls: ['./grade-list.component.css']
+  styleUrls: ['./grade-list.component.css'],
 })
 export class GradeListComponent implements OnInit {
-public grade !: Grade[];
-  constructor(
-private gradeService: GradeService,
-private router: Router
-
-  ) { }
+  public grade!: Grade[];
+  constructor(private gradeService: GradeService, private router: Router) {}
 
   ngOnInit(): void {
     this.getGrade();
@@ -73,7 +69,4 @@ private router: Router
       );
     }
   }
-
-
-
 }
