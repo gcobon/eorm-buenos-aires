@@ -1,3 +1,5 @@
+//numero cuatro agregar la ruta hija
+
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AdminComponent } from './admin.component';
@@ -23,6 +25,12 @@ const routes: Routes = [
         loadChildren: () =>
           import('./student/student.module').then((m) => m.StudentModule),
       },
+      {
+        path: 'grade',
+        loadChildren: () =>
+          import('./grade/grade.module').then((m) => m.GradeModule),
+      },
+     
     ],
   },
 ];
