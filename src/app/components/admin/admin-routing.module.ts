@@ -30,6 +30,18 @@ const routes: Routes = [
         loadChildren: () =>
           import('./grade/grade.module').then((m) => m.GradeModule),
       },
+
+      {
+        path: 'classroom',
+        loadChildren: () =>
+          import('./classroom/classroom.module').then((m) => m.ClassroomModule),
+      },
+
+      {
+        path: 'course',
+        loadChildren: () =>
+          import('./course/course.module').then((m) => m.CourseModule),
+      },
      
     ],
   },
