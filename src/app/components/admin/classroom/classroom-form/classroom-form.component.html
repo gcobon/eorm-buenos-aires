@@ -1,0 +1,55 @@
+<div class="container">
+    <div class="row">
+      <div class="col-12 mt-5">
+        <h3>{{ title }}</h3>
+      </div>
+    </div>
+    <form class="form needs-validation mt-3" [formGroup]="classroomForm" novalidate (ngSubmit)="onAction()" #form>
+      <div class="row gy-4">
+
+        <!--Capacidad aula-->
+        <div class="col-3">
+          <label for="capacidad_aula" class="form-label">Capacidad Aula <span class="danger">*</span></label>
+          <input type="text" class="form-control" formControlName="capacidad_aula" id="capacidad_aula"
+            placeholder="capacidad_aula" autocomplete="off" required />
+          <div class="invalid-feedback">Campo requerido</div>
+        </div>
+
+        <!--Nombre aula-->
+        <div class="col-3">
+            <label for="nombre_aula" class="form-label">Nombre Aula<span class="danger">*</span></label>
+            <input type="text" class="form-control" formControlName="nombre_aula" id="nombre_aula"
+              placeholder="nombre_aula" autocomplete="off" required />
+            <div class="invalid-feedback">Campo requerido</div>
+          </div>
+
+          <!--Seccion aula-->
+        <div class="col-3">
+            <label for="seccion_aula" class="form-label">Sección Aula<span class="danger">*</span></label>
+            <input type="text" class="form-control" formControlName="seccion_aula" id="seccion_aula"
+              placeholder="seccion_aula" autocomplete="off" required />
+            <div class="invalid-feedback">Campo requerido</div>
+          </div>
+          
+         <!-- Action -->
+      <div class="col-12">
+        <div class="row">
+          <div class="col-6">
+            <div class="d-grid">
+              <button type="button" class="btn btn-danger btn-lg" (click)="onCancel()">
+                Cancelar
+              </button>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="d-grid">
+              <button type="submit" class="btn btn-primary btn-lg">
+                {{ action }}
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

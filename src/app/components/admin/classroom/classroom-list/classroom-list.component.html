@@ -1,0 +1,57 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col mt-2">
+      <button
+        class="btn btn-primary"
+        routerLink="/admin/classroom/classroom-form"
+      >
+        Nueva Aula
+      </button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col mt-2">
+      <table class="table table-hover table-sm table-responsive-lg">
+        <thead class="table-dark">
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Capacidad Aula</th>
+            <th scope="col">Nombre Aula</th>
+            <th scope="col">Sección Aula</th>
+            <th scope="col">Opciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let classroom of classroom; let i = index">
+            <th scope="row">{{ i + 1 }}</th>
+            <td>
+              {{ classroom.capacidad_aula }}
+            </td>
+            <td>
+              {{ classroom.nombre_aula }}
+            </td>
+            <td>
+              {{ classroom.seccion_aula }}
+              
+            </td>
+            
+            <td>
+              <button
+                class="btn btn-secondary btn-sm"
+                (click)="onOpenEditClassroom(classroom.id_aula!)"
+              >
+                <i class="fas fa-edit"></i>
+              </button>
+              <button
+                class="btn btn-danger btn-sm ms-1"
+                (click)="onDeleteClassroom(classroom.id_aula!)"
+              >
+                <i class="fas fa-trash-alt"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

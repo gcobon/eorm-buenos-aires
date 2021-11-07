@@ -25,8 +25,7 @@ export class GradeService {
   }
 
   updateGrade(grade: Grade): Observable<Grade> {
-    return this.http.put<Grade>(
-      `${url_base}/grados/actualizar/${grade.id_grado}`,
+    return this.http.put<Grade>(`${url_base}/grados/actualizar/${grade.id_grado}`,
       grade
     );
   }

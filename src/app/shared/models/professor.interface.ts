@@ -1,6 +1,6 @@
 import { User } from '.';
 
-export interface Professor {
+export class Professor {
   id?: number;
   primer_nombre_profesor?: string;
   segundo_nombre_profesor?: string;
