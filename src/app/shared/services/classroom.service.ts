@@ -8,18 +8,17 @@ import { Grade } from '../models/grade';
 const url_base = environment.url_base;
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ClassroomService {
-
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   getClassroom(): Observable<Classroom[]> {
     return this.http.get<Classroom[]>(`${url_base}/aulas/listar`);
   }
 
   //grado como fk
- // getGrade(): Observable<Grade[]> {
+  // getGrade(): Observable<Grade[]> {
   //  return this.http.get<Grade[]>(`${url_base}/aulas/grados`);
   //}
 
@@ -41,5 +40,4 @@ export class ClassroomService {
   deleteClassroom(id_aula: number): Observable<any> {
     return this.http.delete<any>(`${url_base}/aulas/eliminar/${id_aula}`);
   }
-
 }

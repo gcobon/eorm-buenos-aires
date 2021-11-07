@@ -1,13 +1,11 @@
-//import { Grade } from "./grade";
+import { Grade } from './grade';
 
 export class Classroom {
-
-    id_aula!: number;
-	capacidad_aula!:number;
-	nombre_aula!:String;
-	seccion_aula!:String;
-	//grado!: Grade
-
+  constructor(
+    public nombre_aula: String,
+    public seccion_aula: String,
+    public grado: Grade,
+    public capacidad_aula?: number,
+    public id_aula?: number
+  ) {}
 }
-
-

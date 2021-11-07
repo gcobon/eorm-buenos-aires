@@ -1,10 +1,7 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col mt-2">
-      <button
-        class="btn btn-primary"
-        routerLink="/admin/classroom/classroom-form"
-      >
+      <button class="btn btn-primary" routerLink="/admin/classroom/classroom-form">
         Nueva Aula
       </button>
     </div>
@@ -18,6 +15,7 @@
             <th scope="col">Capacidad Aula</th>
             <th scope="col">Nombre Aula</th>
             <th scope="col">Sección Aula</th>
+            <th scope="col">Grado</th>
             <th scope="col">Opciones</th>
           </tr>
         </thead>
@@ -32,20 +30,15 @@
             </td>
             <td>
               {{ classroom.seccion_aula }}
-              
+
             </td>
-            
+            <td>{{classroom.grado?.nombre_grado || 'N/A'}}</td>
+
             <td>
-              <button
-                class="btn btn-secondary btn-sm"
-                (click)="onOpenEditClassroom(classroom.id_aula!)"
-              >
+              <button class="btn btn-secondary btn-sm" (click)="onOpenEditClassroom(classroom.id_aula!)">
                 <i class="fas fa-edit"></i>
               </button>
-              <button
-                class="btn btn-danger btn-sm ms-1"
-                (click)="onDeleteClassroom(classroom.id_aula!)"
-              >
+              <button class="btn btn-danger btn-sm ms-1" (click)="onDeleteClassroom(classroom.id_aula!)">
                 <i class="fas fa-trash-alt"></i>
               </button>
             </td>
