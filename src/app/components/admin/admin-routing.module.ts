@@ -54,6 +54,12 @@ const routes: Routes = [
         loadChildren: () =>
           import('./content/content.module').then((m) => m.ContentModule),
       },
+
+      {
+        path: 'responsable',
+        loadChildren: () =>
+          import('./responsable/responsable.module').then((m) => m.ResponsableModule),
+      },
      
     ],
   },
