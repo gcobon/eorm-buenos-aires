@@ -1,0 +1,51 @@
+<div class="container-fluid">
+    <div class="row">
+      <div class="col mt-2">
+        <button class="btn btn-primary" routerLink="/admin/content/content-form">
+          Nuevo Contenido
+        </button>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col mt-2">
+        <table class="table table-hover table-sm table-responsive-lg">
+          <thead class="table-dark">
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Nombre Contenido</th>
+              <th scope="col">Fecha Creación</th>
+              <th scope="col">Archivo</th>
+              <th scope="col">Clase</th>
+              <th scope="col">Opciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let content of content; let i = index">
+              <th scope="row">{{ i + 1 }}</th>
+              <td>
+                {{ content.nombre_contenido}}
+              </td>
+              <td>
+                {{ content.fecha_creacion}}
+              </td>
+              <td>
+                {{ content.archivo}}
+  
+              </td>
+              <td>{{content.clase?.descripcion || 'N/A'}}</td>
+  
+              <td>
+                <button class="btn btn-secondary btn-sm" (click)="onOpenEditContent(content.id!)">
+                  <i class="fas fa-edit"></i>
+                </button>
+                <button class="btn btn-danger btn-sm ms-1" (click)="onDeleteContent(content.id!)">
+                  <i class="fas fa-trash-alt"></i>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  

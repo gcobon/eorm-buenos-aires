@@ -1,0 +1,74 @@
+<div class="container">
+    <div class="row">
+      <div class="col-12 mt-5">
+        <h3>{{ title }}</h3>
+      </div>
+    </div>
+    <form class="form needs-validation mt-3" [formGroup]="contentForm" novalidate (ngSubmit)="onAction()" #form>
+      <div class="row gy-4">
+  
+        <!--Nombre contenido-->
+        <div class="col-6">
+          <label for="nombre_contenido" class="form-label">Nombre Contenido <span class="danger">*</span></label>
+          <input type="text" class="form-control" formControlName="nombre_contenido" id="nombre_contenido"
+            placeholder="nombre_contenido" autocomplete="off" required />
+          <div class="invalid-feedback">Campo requerido</div>
+        </div>
+  
+        <!--Fecha Creación-->
+        <div class="col-6">
+          <label for="fecha_creacion" class="form-label">Fecha Creación<span class="danger">*</span></label>
+          <input type="date" class="form-control" formControlName="fecha_creacion" id="fechaCrea" placeholder="fecha_creacion"
+            autocomplete="off" required />
+          <div class="invalid-feedback">Campo requerido</div>
+        </div>
+  
+        <!--Seccion aula-->
+        <!-- <div class="col-3">
+          <label for="seccion_aula" class="form-label">Sección Aula<span class="danger">*</span></label>
+          <input type="text" class="form-control" formControlName="seccion_aula" id="seccion_aula"
+            placeholder="seccion_aula" autocomplete="off" required />
+          <div class="invalid-feedback">Campo requerido</div>
+        </div> -->
+  
+        <!--Archivo-->
+        <div class="col-6">
+            <label for="archivo" class="form-label">Archivo<span class="danger">*</span></label>
+            <input type="text" class="form-control" formControlName="archivo" id="archivo" placeholder="archivo"
+              autocomplete="off" required />
+            <div class="invalid-feedback">Campo requerido</div>
+          </div>
+
+  
+        <!--Seccion clase-->
+        <div class="col-6">
+          <label for="clase" class="form-label">Clase <span class="danger">*</span></label>
+          <select class="form-select" aria-label="Clase select" id="clase" formControlName="clase">
+            <option selected disabled value="">Seleccione un clase</option>
+            <option *ngFor="let clase of classes" [value]="clase.id">{{clase.descripcion |titlecase}}</option>
+          </select>
+        </div>
+  
+        <!-- Action -->
+        <div class="col-12">
+          <div class="row">
+            <div class="col-6">
+              <div class="d-grid">
+                <button type="button" class="btn btn-danger btn-lg" (click)="onCancel()">
+                  Cancelar
+                </button>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="d-grid">
+                <button type="submit" class="btn btn-primary btn-lg">
+                  {{ action }}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  
