@@ -1,17 +1,19 @@
 import { User } from '.';
 
 export class Professor {
-  id?: number;
-  primer_nombre_profesor?: string;
-  segundo_nombre_profesor?: string;
-  primer_apellido_profesor?: string;
-  segundo_apellido_profesor?: string;
-  dpi_profesor?: number;
-  fecha_nacimiento_profesor?: string;
-  edad_profesor?: number;
-  sexo_profesor?: string;
-  direccion_profesor?: string;
-  telefono_profesor?: string;
-  email_profesor?: string;
-  usuario?: User;
+  constructor(
+    public id?: number,
+    public primer_nombre_profesor?: string,
+    public segundo_nombre_profesor?: string,
+    public primer_apellido_profesor?: string,
+    public segundo_apellido_profesor?: string,
+    public dpi_profesor?: number,
+    public fecha_nacimiento_profesor?: string,
+    public edad_profesor?: number,
+    public sexo_profesor?: string,
+    public direccion_profesor?: string,
+    public telefono_profesor?: string,
+    public email_profesor?: string,
+    public usuario?: User
+  ) {}
 }

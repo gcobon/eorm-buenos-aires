@@ -1,4 +1,4 @@
-import { Component,ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -23,7 +23,7 @@ import { ClassroomService } from 'src/app/shared/services/classroom.service';
 @Component({
   selector: 'app-class-form',
   templateUrl: './class-form.component.html',
-  styleUrls: ['./class-form.component.css']
+  styleUrls: ['./class-form.component.css'],
 })
 export class ClassFormComponent implements OnInit {
   public today = new Date().toString();
@@ -37,21 +37,17 @@ export class ClassFormComponent implements OnInit {
   public courses!: Course[];
   public classrooms!: Classroom[];
 
-
-
   constructor(
     private fb: FormBuilder,
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private classService: ClassService,
     private professorService: ProfessorService,
-    private courseService:CourseService,
-    private classroomService:ClassroomService
-
-  ) { 
+    private courseService: CourseService,
+    private classroomService: ClassroomService
+  ) {
     this.id = this.activatedRoute.snapshot.params.id;
     this.onInitForm();
-
   }
 
   ngOnInit(): void {
@@ -64,9 +60,8 @@ export class ClassFormComponent implements OnInit {
       this.getOneClass();
       this.action = 'Actualizar';
       this.title = 'Actualizar clase';
-
+    }
   }
-}
 
   onInitForm(): void {
     this.classForm = this.fb.group({
@@ -77,17 +72,15 @@ export class ClassFormComponent implements OnInit {
     });
   }
 
-
   getProfessors(): void {
     this.professorService.getProfessors().subscribe((res) => {
       this.professors = res;
     });
   }
 
-
   getCourses(): void {
     this.courseService.getCourse().subscribe((res) => {
-      this.courses= res;
+      this.courses = res;
     });
   }
 
@@ -96,7 +89,6 @@ export class ClassFormComponent implements OnInit {
       this.classrooms = res;
     });
   }
-
 
   getOneClass(): void {
     this.classService.getOneClass(this.id).subscribe(
@@ -115,7 +107,7 @@ export class ClassFormComponent implements OnInit {
         this.classForm.patchValue({
           descripcion: res.descripcion,
           profesor: res.profesor?.id || '',
-          curso: res.curso?.id|| '',
+          curso: res.curso?.id || '',
           aula: res.aula?.id_aula || '',
         });
       },
@@ -133,19 +125,20 @@ export class ClassFormComponent implements OnInit {
   onAction(): void {
     if (this.classForm.valid) {
       const data = this.classForm.value;
-      data.profesor=Number(data.profesor);
+      data.profesor = Number(data.profesor);
       data.curso = Number(data.curso);
-      data.aula=Number(data.aula);
-      
-      const professor=this.professors.find((p)=>p.id==data.profesor) || null;
-      data.profesor=professor;
+      data.aula = Number(data.aula);
 
-      const course = this.courses.find((c) => c.id === data.course) || null;
+      const professor =
+        this.professors.find((p) => p.id == data.profesor) || null;
+      data.profesor = professor;
+
+      const course = this.courses.find((c) => c.id === data.curso) || null;
       data.curso = course;
 
-
-      const classroom = this.classrooms.find((cl) => cl.id_aula === data.classroom) || null;
-      data.clase = classroom;
+      const classroom =
+        this.classrooms.find((cl) => cl.id_aula === data.aula) || null;
+      data.aula = classroom;
 
       /*data.fecha_nacimiento_profesor = format(
         new Date(`${data.fecha_nacimiento_profesor} 00:00:00`),
@@ -157,7 +150,7 @@ export class ClassFormComponent implements OnInit {
           this.saveClass(data);
           break;
         case 'Actualizar':
-          data.id= this.id;
+          data.id = this.id;
 
           this.updatedClass(data);
           break;
@@ -167,9 +160,7 @@ export class ClassFormComponent implements OnInit {
       }
     } else {
       for (const i in this.classForm.controls) {
-        if (
-          Object.prototype.hasOwnProperty.call(this.classForm.controls, i)
-        ) {
+        if (Object.prototype.hasOwnProperty.call(this.classForm.controls, i)) {
           const control = this.classForm.controls[i];
 
           control.markAsDirty();
@@ -243,8 +234,4 @@ export class ClassFormComponent implements OnInit {
       await this.router.navigate(['/admin/class/class-list']);
     }
   }
-
-
-
-
 }
