@@ -5,9 +5,6 @@ import { ResponsableComponent } from './responsable.component';
 import { ResponsableFormComponent } from './responsable-form/responsable-form.component';
 import { ResponsableListComponent } from './responsable-list/responsable-list.component';
 
-
-
-
 const routes: Routes = [
   {
     path: '',
@@ -23,9 +20,7 @@ const routes: Routes = [
 
 @NgModule({
   declarations: [],
-  imports: [
-     [RouterModule.forChild(routes)],
-     [RouterModule],
-  ]
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule],
 })
 export class ResponsableRoutingModule { }
