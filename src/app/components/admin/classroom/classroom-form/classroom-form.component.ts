@@ -44,6 +44,7 @@ export class ClassroomFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.getGrades();
+    
     //this.subGrado();
 
     if (this.id_aula) {

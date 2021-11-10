@@ -1,0 +1,70 @@
+<div class="container-fluid">
+    <div class="row">
+      <div class="col mt-2">
+        <button
+          class="btn btn-primary"
+          routerLink="/admin/responsable/responsable-form"
+        >
+          Nuevo Responsable
+        </button>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col mt-2">
+        <table class="table table-hover table-sm table-responsive-lg">
+          <thead class="table-dark">
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Nombres</th>
+              <th scope="col">Apellidos</th>
+              <th scope="col">Dpi</th>
+              <th scope="col">F. Nacimiento</th>
+              <th scope="col">Edad</th>
+              <th scope="col">Sexo</th>
+              <th scope="col">Dirección</th>
+              <th scope="col">Télefono</th>
+              <th scope="col">Email</th>
+              <th scope="col">Opciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let responsable of responsables; let i = index">
+              <th scope="row">{{ i + 1 }}</th>
+              <td>
+                {{ responsable.primer_nombre_responsable }}
+                {{ responsable.segundo_nombre_responsable }}
+              </td>
+              <td>
+                {{ responsable.primer_apellido_responsable }}
+                {{ responsable.segundo_apellido_responsable }}
+              </td>
+              <td>{{ responsable.dpi_responsable }}</td>
+              <td>
+                {{ responsable.fecha_nacimiento_responsable | date: "dd/MM/yyyy" }}
+              </td>
+              <td>{{ responsable.edad_responsable }}</td>
+              <td>{{ responsable.sexo_responsable }}</td>
+              <td>{{ responsable.direccion_responsable }}</td>
+              <td>{{ responsable.telefono_responsable }}</td>
+              <td>{{ responsable.email_responsable }}</td>
+              <td>
+                <button
+                  class="btn btn-secondary btn-sm"
+                  (click)="onOpenEditResponsable(responsable.id_responsable!)"
+                >
+                  <i class="fas fa-edit"></i>
+                </button>
+                <button
+                  class="btn btn-danger btn-sm ms-1"
+                  (click)="onDeleteResponsable(responsable.id_responsable!)"
+                >
+                  <i class="fas fa-trash-alt"></i>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  
