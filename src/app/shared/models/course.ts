@@ -1,4 +1,3 @@
 export class Course {
-    id!: number;
-    nombre_curso!: String;
+  constructor(public nombre_curso: string, public id?: number) {}
 }

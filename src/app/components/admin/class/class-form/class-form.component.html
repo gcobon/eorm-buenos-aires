@@ -1,60 +1,48 @@
 <div class="container">
-    <div class="row">
-      <div class="col-12 mt-5">
-        <h3>{{ title }}</h3>
-      </div>
+  <div class="row">
+    <div class="col-12 mt-5">
+      <h3>{{ title }}</h3>
     </div>
-    <form class="form needs-validation mt-3" [formGroup]="classForm" novalidate (ngSubmit)="onAction()" #form>
-      <div class="row gy-4">
-  
-        <!--Descripción clase-->
-        <div class="col-6">
-          <label for="descripcion" class="form-label">Descripción Clase <span class="danger">*</span></label>
-          <input type="text" class="form-control" formControlName="descripcion" id="descripcion"
-            placeholder="descripcion" autocomplete="off" required />
-          <div class="invalid-feedback">Campo requerido</div>
-        </div>
-  
-       
-  
-             
+  </div>
+  <form class="form needs-validation mt-3" [formGroup]="classForm" novalidate (ngSubmit)="onAction()" #form>
+    <div class="row gy-4">
+
+      <!--Descripción clase-->
+      <div class="col-6">
+        <label for="descripcion" class="form-label">Descripción Clase <span class="danger">*</span></label>
+        <input type="text" class="form-control" formControlName="descripcion" id="descripcion" placeholder="descripcion"
+          autocomplete="off" required />
+        <div class="invalid-feedback">Campo requerido</div>
+      </div>
 
       <!--Seccion profesor-->
       <div class="col-6">
         <label for="professors" class="form-label">Profesor <span class="danger">*</span></label>
         <select class="form-select" aria-label="Professors select" id="professors" formControlName="profesor">
           <option selected disabled value="">Seleccione un Profesor</option>
-          <option *ngFor="let professor of professors" [value]="professor.id">{{professor.primer_nombre_profesor + ' ' + professor.primer_apellido_profesor|titlecase}}</option>
+          <option *ngFor="let professor of professors" [value]="professor.id">{{professor.primer_nombre_profesor + ' ' +
+            professor.primer_apellido_profesor|titlecase}}</option>
         </select>
       </div>
-
-
 
       <!--Seccion curso -->
       <div class="col-6">
         <label for="course" class="form-label">Curso <span class="danger">*</span></label>
         <select class="form-select" aria-label="Course select" id="course" formControlName="curso">
           <option selected disabled value="">Seleccione un Curso</option>
-          <option *ngFor="let course courses" [value]="course.id">{{course.nombre_curso |titlecase}}</option>
+          <option *ngFor="let course of courses" [value]="course.id">{{course.nombre_curso |titlecase}}</option>
         </select>
       </div>
-      
-      
 
-      <!--Seccion Aula
+      <!-- Seccion Aula -->
       <div class="col-6">
         <label for="classroom" class="form-label">Aula<span class="danger">*</span></label>
         <select class="form-select" aria-label="Classroom select" id="classroom" formControlName="aula">
           <option selected disabled value="">Seleccione un Aula</option>
-          <option *ngFor="let classroom of classrooms" [value]="classroom.id_aula">{{classroom.nombre_aula |titlecase}}</option>
+          <option *ngFor="let classroom of classrooms" [value]="classroom.id_aula">{{classroom.nombre_aula |titlecase}}
+          </option>
         </select>
       </div>
-
--->
-
-
-
-      
 
       <!-- Action -->
       <div class="col-12">
@@ -78,5 +66,3 @@
     </div>
   </form>
 </div>
-
-  

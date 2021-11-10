@@ -4,15 +4,14 @@ import Swal from 'sweetalert2';
 import { ContentService } from 'src/app/shared/services/content.service';
 import { Content } from 'src/app/shared/models/content';
 
-
 @Component({
   selector: 'app-content-list',
   templateUrl: './content-list.component.html',
-  styleUrls: ['./content-list.component.css']
+  styleUrls: ['./content-list.component.css'],
 })
 export class ContentListComponent implements OnInit {
   public content!: Content[];
-  constructor(private contentService: ContentService, private router: Router) { }
+  constructor(private contentService: ContentService, private router: Router) {}
 
   ngOnInit(): void {
     this.getContent();
@@ -21,7 +20,7 @@ export class ContentListComponent implements OnInit {
   getContent(): void {
     this.contentService.getContent().subscribe(
       (classroom) => {
-        this.content =this.content;
+        this.content = classroom;
       },
       (error) => {
         console.log(error);
@@ -69,6 +68,5 @@ export class ContentListComponent implements OnInit {
         }
       );
     }
-  } 
-
+  }
 }

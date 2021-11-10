@@ -16,10 +16,9 @@ import { Class } from 'src/app/shared/models/class';
 @Component({
   selector: 'app-content-form',
   templateUrl: './content-form.component.html',
-  styleUrls: ['./content-form.component.css']
+  styleUrls: ['./content-form.component.css'],
 })
 export class ContentFormComponent implements OnInit {
-
   public today = new Date().toString();
   public contentForm!: FormGroup;
   public action: 'Guardar' | 'Actualizar' = 'Guardar';
@@ -29,29 +28,20 @@ export class ContentFormComponent implements OnInit {
 
   public classes!: Class[];
 
-
-
-
   constructor(
     private fb: FormBuilder,
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private contentService: ContentService,
     private classService: ClassService
-
-
-
-
   ) {
-
     this.id = this.activatedRoute.snapshot.params.id;
     this.onInitForm();
-
-   }
+  }
 
   ngOnInit(): void {
     this.getClass();
-    
+
     //this.subGrado();
 
     if (this.id) {
@@ -59,14 +49,13 @@ export class ContentFormComponent implements OnInit {
       this.action = 'Actualizar';
       this.title = 'Actualizar aula';
     }
-
   }
 
   onInitForm(): void {
     this.contentForm = this.fb.group({
       nombre_contenido: [null, Validators.required],
       fecha_creacion: [null, Validators.required],
-      archivo: ['', Validators.required],
+      archivo: [''],
       clase: ['', Validators.required],
     });
   }
@@ -103,7 +92,7 @@ export class ContentFormComponent implements OnInit {
         this.contentForm.patchValue({
           nombre_contenido: res.nombre_contenido,
           fecha_creacion: fechaCrea,
-          archivo: res.archivo,
+          archivo: '',
           clase: res.clase?.id || '',
         });
       },
@@ -122,7 +111,6 @@ export class ContentFormComponent implements OnInit {
     if (this.contentForm.valid) {
       const data = this.contentForm.value;
       data.clase = Number(data.clase);
-      
 
       const clase = this.classes.find((g) => g.id === data.clase) || null;
 
@@ -162,28 +150,30 @@ export class ContentFormComponent implements OnInit {
     }
   }
 
-  saveContent(data: Content): void {
-    this.contentService.saveContent(data).subscribe(
-      (res) => {
-        if (res) {
-          Swal.fire({
-            title: 'Correcto',
-            text: 'Contenido guardado correctamente',
-            icon: 'success',
-          });
+  async saveContent(data: Content) {
+    // this.contentService.saveContent(data).subscribe(
+    //   (res) => {
+    //     if (res) {
+    //       Swal.fire({
+    //         title: 'Correcto',
+    //         text: 'Contenido guardado correctamente',
+    //         icon: 'success',
+    //       });
 
-          this.router.navigate(['/admin/content/content-list']);
-        }
-      },
-      (error) => {
-        console.log(error);
-        Swal.fire({
-          title: 'Error',
-          text: 'Algo salió mal',
-          icon: 'error',
-        });
-      }
-    );
+    //       this.router.navigate(['/admin/content/content-list']);
+    //     }
+    //   },
+    //   (error) => {
+    //     console.log(error);
+    //     Swal.fire({
+    //       title: 'Error',
+    //       text: 'Algo salió mal',
+    //       icon: 'error',
+    //     });
+    //   }
+    // );
+
+    await this.contentService.saveContent(data);
   }
 
   updatedContent(data: Content): void {
@@ -225,5 +215,36 @@ export class ContentFormComponent implements OnInit {
     }
   }
 
+  public imgTemp!: string | ArrayBuffer | null;
 
+  cargarImagen(event: any): void {
+    let file = event.target.files[0];
+
+    const typeAllowed = ['image/jpg', 'image/jpeg', 'image/png'];
+
+    if (!file) {
+      this.imgTemp = '';
+      return;
+    }
+
+    if (!typeAllowed.includes(file.type)) {
+      Swal.fire({
+        title: 'Info',
+        text: 'La imagen debe ser de tipo "JPEG/PNG/JPG"',
+        icon: 'info',
+        showConfirmButton: false,
+        timer: 3500,
+      });
+      return;
+    }
+
+    const reader = new FileReader();
+
+    reader.readAsDataURL(file);
+
+    reader.onloadend = () => {
+      this.imgTemp = reader.result;
+      //this.imagenSubir = file;
+    };
+  }
 }
