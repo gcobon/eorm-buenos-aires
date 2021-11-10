@@ -6,20 +6,12 @@ import { ResponsableFormComponent } from './responsable-form/responsable-form.co
 import { ResponsableListComponent } from './responsable-list/responsable-list.component';
 import { ResponsableRoutingModule } from './responsable-routing.module';
 
-
-
 @NgModule({
   declarations: [
-
     ResponsableComponent,
     ResponsableListComponent,
-    ResponsableFormComponent
-
+    ResponsableFormComponent,
   ],
-  imports: [
-    CommonModule,
-    ResponsableRoutingModule,
-    ReactiveFormsModule
-  ]
+  imports: [CommonModule, ResponsableRoutingModule, ReactiveFormsModule],
 })
-export class ResponsableModule { }
+export class ResponsableModule {}
