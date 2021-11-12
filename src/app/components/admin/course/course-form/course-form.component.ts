@@ -117,6 +117,21 @@ export class CourseFormComponent implements OnInit {
 
       this.form.nativeElement.classList.add('was-validated');
     }
+
+    const Toast = Swal.mixin({
+      toast: true,
+      showConfirmButton: false,
+      timer: 2500,
+      timerProgressBar: true,
+      position: 'top-end',
+    });
+
+    Toast.fire({
+      title: 'Verifique los campos requeridos',
+      icon: 'info',
+    });
+
+    
   }
 
 

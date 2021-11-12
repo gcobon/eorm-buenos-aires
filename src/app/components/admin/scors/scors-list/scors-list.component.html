@@ -1,0 +1,51 @@
+<div class="container-fluid">
+    <div class="row">
+      <div class="col mt-2">
+        <button class="btn btn-primary" routerLink="/admin/scors/scors-form">
+          Nueva Calificacion
+        </button>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col mt-2">
+        <table class="table table-hover table-sm table-responsive-lg">
+          <thead class="table-dark">
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Nota bimestre 1</th>
+              <th scope="col">Nota bimestre 2</th>
+              <th scope="col">Nota bimestre 3</th>
+              <th scope="col">Nota bimestre 4</th>
+              <th scope="col">Promedio Final</th>
+              <th scope="col">Estudiante</th>
+              <th scope="col">Curso</th>
+              <th scope="col">Opciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let calificacion of scorss; let i = index">
+              <th scope="row">{{ i + 1 }}</th>
+              <td>{{calificacion.nota_bim1}}</td>
+              <td>{{calificacion.nota_bim2}}</td>
+              <td>{{calificacion.nota_bim3}}</td>
+              <td>{{calificacion.nota_bim4}}</td>
+              <td>{{calificacion.promedio_final}}</td>
+              <td>{{calificacion.estudiante?.primer_nombre_estudiante + ' ' + calificacion.estudiante?.primer_apellido_estudiante || 'N/A'}}</td>
+              <td>{{calificacion.curso?.nombre_curso || 'N/A'}}</td>
+  
+              <td>
+                <button class="btn btn-secondary btn-sm" (click)="onOpenEditScors(calificacion.id!)">
+                  <i class="fas fa-edit"></i>
+                </button>
+                <button class="btn btn-danger btn-sm ms-1" (click)="onDeleteScors(calificacion.id!)">
+                  <i class="fas fa-trash-alt"></i>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  
+

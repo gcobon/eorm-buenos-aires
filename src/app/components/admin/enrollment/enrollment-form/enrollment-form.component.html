@@ -1,0 +1,65 @@
+<div class="container">
+    <div class="row">
+      <div class="col-12 mt-5">
+        <h3>{{ title }}</h3>
+      </div>
+    </div>
+    <form class="form needs-validation mt-3" [formGroup]="enrollmentForm" novalidate (ngSubmit)="onAction()" #form>
+      <div class="row gy-4">
+
+        <!-- Fecha matricula -->
+        <div class="col-6">
+            <label for="fechaNac" class="form-label"
+              >Fecha Matricula<span class="danger">*</span></label
+            >
+            <input
+              type="date"
+              class="form-control"
+              formControlName="fecha_matricula"
+              id="fechaNac"
+              required
+            />
+            <div class="invalid-feedback">Campo requerido</div>
+          </div>
+          
+        <!--Observaciones-->
+        <div class="col-6">
+          <label for="observaciones" class="form-label">Observaciones<span class="danger">*</span></label>
+          <input type="text" class="form-control" formControlName="observaciones" id="observaciones" placeholder="observaciones"
+            autocomplete="off" required />
+          <div class="invalid-feedback">Campo requerido</div>
+        </div>
+  
+          
+        <!--Seccion estudiante-->
+        <div class="col-6">
+          <label for="student" class="form-label">Estudiante <span class="danger">*</span></label>
+          <select class="form-select" aria-label="Student select" id="student" formControlName="estudiante">
+            <option selected disabled value="">Seleccione un estudiante</option>
+            <option *ngFor="let estudiante of students" [value]="estudiante.codigo_personal">{{estudiante.primer_nombre_estudiante + ' ' + estudiante.primer_apellido_estudiante |titlecase}}</option>
+          </select>
+        </div>
+  
+        <!-- Action -->
+        <div class="col-12">
+          <div class="row">
+            <div class="col-6">
+              <div class="d-grid">
+                <button type="button" class="btn btn-danger btn-lg" (click)="onCancel()">
+                  Cancelar
+                </button>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="d-grid">
+                <button type="submit" class="btn btn-primary btn-lg">
+                  {{ action }}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  

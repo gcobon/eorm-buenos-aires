@@ -1,0 +1,93 @@
+<div class="container">
+    <div class="row">
+      <div class="col-12 mt-5">
+        <h3>{{ title }}</h3>
+      </div>
+    </div>
+    <form class="form needs-validation mt-3" [formGroup]="scorsForm" novalidate (ngSubmit)="onAction()" #form>
+      <div class="row gy-4">
+  
+        <!--calificacion bim 1-->
+        <div class="col-6">
+          <label for="nota_bim1" class="form-label">Calificación bimestre 1<span class="danger">*</span></label>
+          <input type="text" class="form-control" formControlName="nota_bim1" id="nota_bim1" placeholder="calificación bim1"
+            autocomplete="off" required />
+          <div class="invalid-feedback">Campo requerido</div>
+        </div>
+
+        <!--calificacion bim 2-->
+        <div class="col-6">
+            <label for="nota_bim2" class="form-label">Calificación bimestre 2<span class="danger">*</span></label>
+            <input type="text" class="form-control" formControlName="nota_bim2" id="nota_bim2" placeholder="calificación bim2"
+              autocomplete="off" required />
+            <div class="invalid-feedback">Campo requerido</div>
+          </div>
+
+          <!--calificacion bim 3-->
+        <div class="col-6">
+            <label for="nota_bim3" class="form-label">Calificación bimestre 3<span class="danger">*</span></label>
+            <input type="text" class="form-control" formControlName="nota_bim3" id="nota_bim3" placeholder="calificación bim3"
+              autocomplete="off" required />
+            <div class="invalid-feedback">Campo requerido</div>
+          </div>
+
+          <!--calificacion bim 4-->
+        <div class="col-6">
+            <label for="nota_bim4" class="form-label">Calificación bimestre 4 <span class="danger">*</span></label>
+            <input type="text" class="form-control" formControlName="nota_bim4" id="nota_bim1" placeholder="calificación bim4"
+              autocomplete="off" required />
+            <div class="invalid-feedback">Campo requerido</div>
+          </div>
+
+
+          <!--Promedio final-->
+        <div class="col-6">
+            <label for="promedio_final" class="form-label">Promedio Final<span class="danger">*</span></label>
+            <input type="text" class="form-control" formControlName="promedio_final" id="promedio_final" placeholder="Promedio Final"
+              autocomplete="off" required />
+            <div class="invalid-feedback">Campo requerido</div>
+          </div>
+  
+        <!--Seccion estudiante-->
+        <div class="col-6">
+          <label for="students" class="form-label">Estudiante<span class="danger">*</span></label>
+          <select class="form-select" aria-label="Students select" id="students" formControlName="estudiante">
+            <option selected disabled value="">Seleccione un Estudiante</option>
+            <option *ngFor="let estudiante of students" [value]="estudiante.codigo_personal">{{estudiante.primer_nombre_estudiante + ' ' +
+              estudiante.primer_apellido_estudiante|titlecase}}</option>
+          </select>
+        </div>
+  
+        <!--Seccion curso -->
+        <div class="col-6">
+          <label for="course" class="form-label">Curso <span class="danger">*</span></label>
+          <select class="form-select" aria-label="Course select" id="course" formControlName="curso">
+            <option selected disabled value="">Seleccione un Curso</option>
+            <option *ngFor="let course of courses" [value]="course.id">{{course.nombre_curso |titlecase}}</option>
+          </select>
+        </div>
+  
+        
+        <!-- Action -->
+        <div class="col-12">
+          <div class="row">
+            <div class="col-6">
+              <div class="d-grid">
+                <button type="button" class="btn btn-danger btn-lg" (click)="onCancel()">
+                  Cancelar
+                </button>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="d-grid">
+                <button type="submit" class="btn btn-primary btn-lg">
+                  {{ action }}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  

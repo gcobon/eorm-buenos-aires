@@ -1,0 +1,291 @@
+<div class="container">
+  <div style="width: 1280px; height: 600px; overflow-y: scroll;">
+    <div class="row">
+      <div class="col-12 mt-5">
+        <h3>{{ title }}</h3>
+      </div>
+    </div>
+    <form
+      class="form needs-validation mt-3"
+      [formGroup]="studentForm"
+      novalidate 
+      (ngSubmit)="onAction()"
+      #form
+    >
+
+    <div class="row gy-4">
+      <!-- codigo personal -->
+      <div class="col-3">
+        <label for="codigo_personal" class="form-label"
+          >Codigo Personal <span class="danger">*</span></label
+        >
+        <input
+          type="text"
+          class="form-control"
+          formControlName="codigo_personal"
+          id="codigo_personal"
+          placeholder="Codigo Personal"
+          autocomplete="off"
+          required
+        />
+        <div class="invalid-feedback">Campo requerido</div>
+      </div>
+
+      
+        <!-- Primer nombre -->
+        <div class="col-3">
+          <label for="primer_nombre_estudiante" class="form-label"
+            >Primer nombre <span class="danger">*</span></label
+          >
+          <input
+            type="text"
+            class="form-control"
+            formControlName="primer_nombre_estudiante"
+            id="primer_nombre_estudiante"
+            placeholder="Primer nombre"
+            autocomplete="off"
+            required
+          />
+          <div class="invalid-feedback">Campo requerido</div>
+        </div>
+        <!-- Segundo nombre -->
+        <div class="col-3">
+          <label for="segundo_nombre_estudiante" class="form-label"
+            >Segundo nombre <span class="danger">*</span></label
+          >
+          <input
+            type="text"
+            class="form-control"
+            formControlName="segundo_nombre_estudiante"
+            id="segundo_nombre_estudiante"
+            placeholder="Segundo nombre"
+            autocomplete="off"
+            required
+          />
+          <div class="invalid-feedback">Campo requerido</div>
+        </div>
+        <!-- Primer apellido -->
+        <div class="col-3">
+          <label for="primer_apellido_estudiante" class="form-label"
+            >Primer apellido <span class="danger">*</span></label
+          >
+          <input
+            type="text"
+            class="form-control"
+            formControlName="primer_apellido_estudiante"
+            id="primer_apellido_estudiante"
+            placeholder="Primer apellido"
+            autocomplete="off"
+            required
+          />
+          <div class="invalid-feedback">Campo requerido</div>
+        </div>
+        <!-- Segundo apellido -->
+        <div class="col-3">
+          <label for="segundo_apellido_estudiante" class="form-label"
+            >Segundo apellido <span class="danger">*</span></label
+          >
+          <input
+            type="text"
+            class="form-control"
+            formControlName="segundo_apellido_estudiante"
+            id="segundo_apellido_estudiante"
+            placeholder="Segundo apellido"
+            autocomplete="off"
+            required
+          />
+          <div class="invalid-feedback">Campo requerido</div>
+        </div>
+
+        <!-- Fecha nacimiento -->
+        <div class="col-6">
+            <label for="fechaNac" class="form-label"
+              >Fecha de nacimiento<span class="danger">*</span></label
+            >
+            <input
+              type="date"
+              class="form-control"
+              formControlName="fecha_nacimiento"
+              id="fechaNac"
+              required
+            />
+            <div class="invalid-feedback">Campo requerido</div>
+          </div>
+
+          <!-- Edad -->
+        <div class="col-6">
+            <label for="edad_estudiante" class="form-label"
+              >Edad<span class="danger">*</span></label
+            >
+            <input
+              type="number"
+              class="form-control"
+              formControlName="edad_estudiante"
+              id="edad"
+              placeholder="Edad"
+              min="3"
+              max="100"
+              required
+            />
+            <div class="invalid-feedback">Campo requerido</div>
+          </div>
+          <!-- Sexo -->
+          <div class="col-6">
+            <label for="sexo_estudiante" class="form-label">Sexo</label>
+            <select
+              class="form-select"
+              aria-label="sexo"
+              formControlName="sexo_estudiante"
+              id="sexo"
+              name="sexo"
+              required
+            >
+              <option selected disabled value="">Seleccione una opción</option>
+              <option value="Masculino">Masculino</option>
+              <option value="Fememino">Femenino</option>
+            </select>
+            <div class="invalid-feedback">Campo requerido</div>
+          </div>
+
+          <!-- Idioma-->
+        <div class="col-6">
+            <label for="idioma_estudiante" class="form-label"
+              >Idioma<span class="danger">*</span></label
+            >
+            <input
+              type="text"
+              class="form-control"
+              formControlName="idioma_estudiante"
+              id="idioma_estudiante"
+              placeholder="Idioma"
+              autocomplete="off"
+              required
+            />
+            <div class="invalid-feedback">Campo requerido</div>
+          </div>
+
+          <!-- Lateralidad -->
+        <div class="col-6">
+            <label for="lateralidad_estudiante" class="form-label"
+              >Lateralidad<span class="danger">*</span></label
+            >
+            <input
+              type="text"
+              class="form-control"
+              formControlName="lateralidad_estudiante"
+              id="lateralidad_estudiante"
+              placeholder="Lateralidad"
+              autocomplete="off"
+              required
+            />
+            <div class="invalid-feedback">Campo requerido</div>
+          </div>
+
+        <!-- Dirección -->
+        <div class="col-6">
+          <label for="direccion_estudiante" class="form-label"
+            >Dirección<span class="danger">*</span></label
+          >
+          <input
+            type="text"
+            class="form-control"
+            formControlName="direccion_estudiante"
+            id="direccion_estudiante"
+            placeholder="Dirección"
+            autocomplete="off"
+            required
+          />
+          <div class="invalid-feedback">Campo requerido</div>
+        </div>
+        
+        <!-- Observación -->
+        <div class="col-6">
+            <label for="observacion" class="form-label"
+              >Observación<span class="danger">*</span></label
+            >
+            <input
+              type="text"
+              class="form-control"
+              formControlName="observacion"
+              id="observacion"
+              placeholder="Observación"
+              autocomplete="off"
+              required
+            />
+            <div class="invalid-feedback">Campo requerido</div>
+          </div>
+
+
+          <!--Seccion usuario-->
+      <div class="col-6">
+        <label for="users" class="form-label">Usuario <span class="danger">*</span></label>
+        <select class="form-select" aria-label="Users select" id="users" formControlName="usuario">
+          <option selected disabled value="">Seleccione un Usuario</option>
+          <option *ngFor="let user of users" [value]="user.id">{{user.nombreUsuario|titlecase}}</option>
+        </select>
+      </div>
+
+       <!--Seccion responsable-->
+       <div class="col-6">
+        <label for="responsable" class="form-label">Responsable <span class="danger">*</span></label>
+        <select class="form-select" aria-label="Responsables select" id="responsables" formControlName="responsable">
+          <option selected disabled value="">Seleccione un Responsable</option>
+          <option *ngFor="let responsable of responsables" [value]="responsable.id_responsable">{{responsable.primer_nombre_responsable + ' ' + responsable.primer_apellido_responsable|titlecase}}</option>
+        </select>
+      </div>
+
+      <!--Seccion grado-->
+      <div class="col-6">
+        <label for="grade" class="form-label">Grado <span class="danger">*</span></label>
+        <select class="form-select" aria-label="Grades select" id="grades" formControlName="grado">
+          <option selected disabled value="">Seleccione un Grado</option>
+          <option *ngFor="let grade of grades" [value]="grade.id_grado">{{grade.nombre_grado|titlecase}}</option>
+        </select>
+      </div>
+
+      <!--Seccion aula-->
+      <div class="col-6">
+        <label for="classroom" class="form-label">Aula <span class="danger">*</span></label>
+        <select class="form-select" aria-label="Classrooms select" id="classroom" formControlName="aula">
+          <option selected disabled value="">Seleccione un Aula</option>
+          <option *ngFor="let classroom of classrooms" [value]="classroom.id_aula">{{classroom.nombre_aula|titlecase}}</option>
+        </select>
+      </div>
+
+
+
+
+
+
+
+
+        
+        
+        <!-- Action -->
+        <div class="col-12">
+          <div class="row">
+            <div class="col-6">
+              <div class="d-grid">
+                <button
+                  type="button"
+                  class="btn btn-danger btn-lg"
+                  (click)="onCancel()"
+                >
+                  Cancelar
+                </button>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="d-grid">
+                <button type="submit" class="btn btn-primary btn-lg">
+                  {{ action }}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  </div>
+

@@ -1,4 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
+import { StudentComponent } from '../student.component';
+import { StudentService } from 'src/app/shared/services/student.service';
+import { Students } from 'src/app/shared/models/students';
+
+
 
 @Component({
   selector: 'app-student-list',
@@ -6,75 +13,76 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./student-list.component.css'],
 })
 export class StudentListComponent implements OnInit {
-  public estudiantes = [
-    {
-      primerNombre: 'Fallon',
-      segundoNombre: 'Garrett',
-      primerApellido: 'Stephens',
-      segundoApellido: 'Dorsey',
-      fechaNacimiento: new Date(),
-      sexo: 'M',
-      direccion:
-        'justo. Proin non massa non ante bibendum ullamcorper. Duis cursus,',
-      lateralidad: 55454858555,
-      email: 'ipsum.phasellus@laciniaatiaculis.co.uk',
-      idUsuario: 'FPH23UMY9GJ',
-    },
-    {
-      primerNombre: 'Orlando',
-      segundoNombre: 'Cruz',
-      primerApellido: 'Wing',
-      segundoApellido: 'Kelly',
-      fechaNacimiento: new Date(),
-      sexo: 'F',
-      direccion:
-        'Proin dolor. Nulla semper tellus id nunc interdum feugiat. Sed',
-      lateralidad: 358852,
-      email: 'diam.pellentesque.habitant@dictumeleifend.edu',
-      idUsuario: 'XIB36QRT0LD',
-    },
-    {
-      primerNombre: 'Garth',
-      segundoNombre: 'Osborne',
-      primerApellido: 'Samantha',
-      segundoApellido: 'Stephens',
-      fechaNacimiento: new Date(),
-      sexo: 'F',
-      direccion:
-        'nulla magna, malesuada vel, convallis in, cursus et, eros. Proin',
-      lateralidad: 25448888,
-      email: 'ac@interdumsed.co.uk',
-      idUsuario: 'UTU11XLM6HF',
-    },
-    {
-      primerNombre: 'Chelsea ',
-      segundoNombre: 'Durham',
-      primerApellido: 'Griffith',
-      segundoApellido: 'Cochran',
-      fechaNacimiento: new Date(),
-      sexo: 'M',
-      direccion:
-        'lorem lorem, luctus ut, pellentesque eget, dictum placerat, augue. Sed',
-      lateralidad: 988555855,
-      email: 'commodo@sed.ca',
-      idUsuario: 'VSU04QSK2WM',
-    },
-    {
-      primerNombre: 'Kim ',
-      segundoNombre: 'Maldonado',
-      primerApellido: 'Jackson',
-      segundoApellido: 'Regina',
-      fechaNacimiento: new Date(),
-      sexo: 'F',
-      direccion:
-        'purus ac tellus. Suspendisse sed dolor. Fusce mi lorem, vehicula',
-      lateralidad: 85545454,
-      email: 'lobortis.quis.pede@orciluctus.org',
-      idUsuario: 'UFN28XBP0QW',
-    },
-  ];
+  public students!: Students[];
+    
 
-  constructor() {}
+  constructor(
 
-  ngOnInit(): void {}
+    private studentService: StudentService,
+    private router: Router
+
+  ) {}
+
+  ngOnInit(): void {
+
+    this.getStudents();
+
+  }
+
+  getStudents(): void {
+    this.studentService.getStudents().subscribe(
+      (students) => {
+        this.students = students;
+      },
+      (error) => {
+        console.log(error);
+
+        Swal.fire({
+          title: 'Error',
+          icon: 'error',
+        });
+      }
+    );
+  }
+
+  onOpenEditStudent(codigo_personal: string) {
+    this.router.navigate(['/admin/students/student-form/',codigo_personal]);
+  }
+
+  async onDeleteStudent(codigo_personal: string) {
+    const { isConfirmed } = await Swal.fire({
+      title: 'Eliminar',
+      text: '¿Seguro de eliminar?',
+      icon: 'question',
+      confirmButtonText: 'Eliminar',
+      showCancelButton: true,
+      cancelButtonText: 'Cancelar',
+    });
+
+    if (isConfirmed) {
+      this.studentService.deleteStudent(codigo_personal).subscribe(
+        () => {
+          this.getStudents();
+
+          Swal.fire({
+            title: 'Correcto',
+            text: 'Estudiante eliminado correctamente',
+            icon: 'success',
+          });
+        },
+        (error) => {
+          console.log(error);
+
+          Swal.fire({
+            title: 'Error',
+            icon: 'error',
+          });
+        }
+      );
+    }
+  }
+
+
+
+
 }

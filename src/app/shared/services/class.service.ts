@@ -27,8 +27,7 @@ export class ClassService {
   }
 
   updateClass(classs: Class): Observable<Class> {
-    return this.http.put<Class>(
-      `${url_base}/clases/actualizar/${classs.id}`,
+    return this.http.put<Class>(`${url_base}/clases/actualizar/${classs.id}`,
       classs
     );
   }

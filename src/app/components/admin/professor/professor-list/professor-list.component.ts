@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Professor } from 'src/app/shared/models';
+import { Professor, User } from 'src/app/shared/models';
 import { ProfessorService } from 'src/app/shared/services/professor.service';
 import Swal from 'sweetalert2';
 
@@ -11,6 +11,7 @@ import Swal from 'sweetalert2';
 })
 export class ProfessorListComponent implements OnInit {
   public professors!: Professor[];
+  
 
   constructor(
     private professorService: ProfessorService,

@@ -57,7 +57,7 @@ export class UserListComponent implements OnInit {
 
           Swal.fire({
             title: 'Correcto',
-            text: 'Profesor eliminado correctamente',
+            text: 'Usuario eliminado correctamente',
             icon: 'success',
           });
         },

@@ -23,7 +23,7 @@ export class UserService {
   saveUser(userData: User): Observable<User> {
     return this.http.post<User>(`${url_base}/auth/nuevo`, userData);
   }
-
+/*
   updateUser(userData: User): Observable<User> {
     return this.http.put<User>(
       `${url_base}/usuarios/actualizar/${userData}`,
@@ -33,5 +33,21 @@ export class UserService {
 
   deleteUser(id: number): Observable<any> {
     return this.http.delete<any>(`${url_base}/usuarios/eliminar/${id}`);
+  } */
+
+
+  updateUser(users: User): Observable<User> {
+    return this.http.put<User>(`${url_base}/usuarios/actualizar/${users.id}`,
+      users
+    );
   }
+
+  deleteUser(id: number): Observable<any> {
+    return this.http.delete<any>(`${url_base}/usuarios/eliminar/${id}`);
+  }
+
+
+
+
+
 }

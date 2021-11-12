@@ -1,11 +1,18 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  Validators,
+  ReactiveFormsModule,
+} from '@angular/forms';
+
 import { ActivatedRoute, Router } from '@angular/router';
-import { Professor } from 'src/app/shared/models';
-import { ProfessorService } from 'src/app/shared/services/professor.service';
 import { format } from 'date-fns';
 import Swal from 'sweetalert2';
-
+import { Professor } from 'src/app/shared/models';
+import { ProfessorService } from 'src/app/shared/services/professor.service';
+import { User } from 'src/app/shared/models';
+import { UserService } from 'src/app/shared/services/user.service';
 @Component({
   selector: 'app-professor-form',
   templateUrl: './professor-form.component.html',
@@ -18,18 +25,24 @@ export class ProfessorFormComponent implements OnInit {
   public title = 'Nuevo profesor';
   private id!: number;
   @ViewChild('form', { static: false }) form!: ElementRef<HTMLFormElement>;
+  public profesores!: Professor[];
+  public users!: User[];
 
   constructor(
     private fb: FormBuilder,
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private professorService: ProfessorService
+    private professorService: ProfessorService,
+    private userService: UserService,
   ) {
     this.id = this.activatedRoute.snapshot.params.id;
     this.onInitForm();
   }
 
   ngOnInit(): void {
+    
+    this.getUsers();
+
     if (this.id) {
       this.getOneProfessor();
       this.action = 'Actualizar';
@@ -50,6 +63,13 @@ export class ProfessorFormComponent implements OnInit {
       email_profesor: [null, Validators.required],
       edad_profesor: [null, Validators.required],
       sexo_profesor: ['', Validators.required],
+      usuario: ['', Validators.required],
+    });
+  }
+
+  getUsers(): void {
+    this.userService.getUsers().subscribe((res) => {
+      this.users = res;
     });
   }
 
@@ -79,6 +99,7 @@ export class ProfessorFormComponent implements OnInit {
           email_profesor: res.email_profesor,
           edad_profesor: res.edad_profesor,
           sexo_profesor: res.sexo_profesor,
+          usuario:res.usuario?.id||'',
         });
       },
       (error) => {
@@ -94,7 +115,16 @@ export class ProfessorFormComponent implements OnInit {
 
   onAction(): void {
     if (this.professorForm.valid) {
-      const data: Professor = this.professorForm.value;
+      const data = this.professorForm.value;
+      data.usuario = Number(data.usuario);
+      
+      const user =
+        this.users.find((u) => u.id == data.usuario) || null;
+      data.usuario = user;
+
+      
+
+
 
       data.fecha_nacimiento_profesor = format(
         new Date(`${data.fecha_nacimiento_profesor} 00:00:00`),
@@ -128,6 +158,18 @@ export class ProfessorFormComponent implements OnInit {
 
       this.form.nativeElement.classList.add('was-validated');
     }
+    const Toast = Swal.mixin({
+      toast: true,
+      showConfirmButton: false,
+      timer: 2500,
+      timerProgressBar: true,
+      position: 'top-end',
+    });
+
+    Toast.fire({
+      title: 'Verifique los campos requeridos',
+      icon: 'info',
+    });
   }
 
   saveProfessor(data: Professor): void {
