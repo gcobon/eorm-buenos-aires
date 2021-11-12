@@ -24,10 +24,9 @@ export class ContentFormComponent implements OnInit {
   public action: 'Guardar' | 'Actualizar' = 'Guardar';
   public title = 'Nuevo Contenido';
   private id!: number;
-  @ViewChild('form', { static: false }) form!: ElementRef<HTMLFormElement>;
-
   public classes!: Class[];
-  private archivoSeleccionado!:File;
+  private fileToUpload!: File;
+  @ViewChild('form', { static: false }) form!: ElementRef<HTMLFormElement>;
 
   constructor(
     private fb: FormBuilder,
@@ -51,28 +50,14 @@ export class ContentFormComponent implements OnInit {
       this.title = 'Actualizar aula';
     }
   }
-
   
-
-  
-
   onInitForm(): void {
     this.contentForm = this.fb.group({
       nombre_contenido: [null, Validators.required],
-     // fecha_creacion: [null, Validators.required],
-      archivo:[null, Validators.required],
+      archivo: [''],
       clase: ['', Validators.required],
     });
   }
-
-  // subGrado(): void {
-  //   this.classroomForm
-  //     .get('grado')
-  //     ?.valueChanges.pipe(filter((value) => value != 2))
-  //     .subscribe((value) => {
-  //       console.log(value);
-  //     });
-  // }
 
   getClass(): void {
     this.classService.getClass().subscribe((res) => {
@@ -115,25 +100,14 @@ export class ContentFormComponent implements OnInit {
   onAction(): void {
     if (this.contentForm.valid) {
       const data = this.contentForm.value;
-      console.log(data)
-      data.clase = Number(data.clase);
-
-      const clase = this.classes.find((g) => g.id === data.clase) || null;
-
-      data.clase = clase;
-
-     
-
       
-
-     /* data.fecha_creacion = format(
-        new Date(`${data.fecha_creacion} 00:00:00`),
-        'yyyy/MM/dd'
-      );*/
-
       switch (this.action) {
         case 'Guardar':
-          this.saveContent(data);
+          this.saveContent(
+            this.fileToUpload,
+            data.clase,
+            data.nombre_contenido
+          );
           break;
         case 'Actualizar':
           data.id = this.id;
@@ -173,9 +147,12 @@ export class ContentFormComponent implements OnInit {
     });
   }
 
-  async saveContent(data: Content) {
-    // this.contentService.saveContent(data).subscribe(
+  saveContent(archivo: File, idClase: string, nombreContenido: string) {
+    this.contentService.saveContent(archivo, idClase, nombreContenido);
+    // .subscribe(
     //   (res) => {
+    //     console.log(res);
+
     //     if (res) {
     //       Swal.fire({
     //         title: 'Correcto',
@@ -195,8 +172,6 @@ export class ContentFormComponent implements OnInit {
     //     });
     //   }
     // );
-
-    await this.contentService.saveContent(data);
   }
 
   updatedContent(data: Content): void {
@@ -238,36 +213,7 @@ export class ContentFormComponent implements OnInit {
     }
   }
 
-  public imgTemp!: string | ArrayBuffer | null;
-
-  cargarImagen(event: any): void {
-    let file = event.target.files[0];
-
-    const typeAllowed = ['image/jpg', 'image/jpeg', 'image/png'];
-
-    if (!file) {
-      this.imgTemp = '';
-      return;
-    }
-
-    if (!typeAllowed.includes(file.type)) {
-      Swal.fire({
-        title: 'Info',
-        text: 'La imagen debe ser de tipo "JPEG/PNG/JPG"',
-        icon: 'info',
-        showConfirmButton: false,
-        timer: 3500,
-      });
-      return;
-    }
-
-    const reader = new FileReader();
-
-    reader.readAsDataURL(file);
-
-    reader.onloadend = () => {
-      this.imgTemp = reader.result;
-      //this.imagenSubir = file;
-    };
+  onLoadFile(event: any): void {
+    this.fileToUpload = event.target.files[0];
   }
 }

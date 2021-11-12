@@ -14,29 +14,10 @@
           placeholder="nombre_contenido" autocomplete="off" required />
         <div class="invalid-feedback">Campo requerido</div>
       </div>
-
-      <!--Fecha Creación
-      <div class="col-6">
-        <label for="fecha_creacion" class="form-label">Fecha Creación<span class="danger">*</span></label>
-        <input type="date" class="form-control" formControlName="fecha_creacion" id="fechaCrea"
-          placeholder="fecha_creacion" autocomplete="off" required />
-        <div class="invalid-feedback">Campo requerido</div>
-      </div>
-      -->
-         
-
-      <!--Seccion aula-->
-      <!-- <div class="col-3">
-          <label for="seccion_aula" class="form-label">Sección Aula<span class="danger">*</span></label>
-          <input type="text" class="form-control" formControlName="seccion_aula" id="seccion_aula"
-            placeholder="seccion_aula" autocomplete="off" required />
-          <div class="invalid-feedback">Campo requerido</div>
-        </div> -->
-
       <!--Archivo-->
       <div class="col-6">
         <label for="archivo" class="form-label">Archivo</label>
-        <input type="file" class="form-control" formControlName="archivo" id="archivo"
+        <input type="file" (change)="onLoadFile($event)" class="form-control" formControlName="archivo" id="archivo"
           placeholder="Seleccione un archivo" />
         <div class="invalid-feedback">Campo requerido</div>
       </div>
