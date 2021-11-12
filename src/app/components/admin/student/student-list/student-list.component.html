@@ -1,7 +1,10 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col mt-2">
-      <button class="btn btn-primary">Nueva matricula</button>
+      
+      <button class="btn btn-primary"
+      routerLink="/admin/students/student-form"
+      >Nuevo Estudiante</button>
     </div>
   </div>
   <div class="row">
@@ -9,36 +12,57 @@
       <table class="table table-hover">
         <thead>
           <tr>
-            <th scope="col">#</th>
+            <th scope="col">Codigo Personal</th>
             <th scope="col">Nombres</th>
             <th scope="col">Apellidos</th>
             <th scope="col">F. Nacimiento</th>
             <th scope="col">Sexo</th>
+            <th scope="col">Idioma</th>
             <th scope="col">Lateralidad</th>
+            <th scope="col">Dirección</th>
             <th scope="col">Observación</th>
+            <th scope="col">Usuario</th>
+            <th scope="col">Responsable</th>
+            <th scope="col">Grado</th>
+            <th scope="col">Aula</th>
             <th scope="col">Opciones</th>
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let estudiante of estudiantes; let i = index">
-            <th scope="row">{{ i + 1 }}</th>
+          <tr *ngFor="let estudiante of students; let i = index">
+            <!--<th scope="row">{{ i + 1 }}</th>-->
+            <td>{{ estudiante.codigo_personal }}</td>
             <td>
-              {{ estudiante.primerNombre }} {{ estudiante.segundoNombre }}
+              {{ estudiante.primer_nombre_estudiante }} {{ estudiante.segundo_nombre_estudiante }}
             </td>
             <td>
-              {{ estudiante.primerApellido }} {{ estudiante.segundoApellido }}
+              {{ estudiante.primer_apellido_estudiante }} {{ estudiante.segundo_apellido_estudiante }}
             </td>
-            <td>{{ estudiante.fechaNacimiento | date: "dd/MM/yyyy" }}</td>
-            <td>{{ estudiante.sexo }}</td>
-            <td>{{ estudiante.lateralidad }}</td>
-            <td>{{ estudiante.email }}</td>
+            <td>{{ estudiante.fecha_nacimiento | date: "dd/MM/yyyy" }}</td>
+            <td>{{ estudiante.sexo_estudiante }}</td>
+            <td>{{ estudiante.idioma_estudiante }}</td>
+            <td>{{ estudiante.lateralidad_estudiante }}</td>
+            <td>{{ estudiante.direccion_estudiante}}</td>
+            <td>{{ estudiante.observacion}}</td>
+            <td>{{estudiante.usuario?.nombreUsuario || 'N/A'}}</td>
+            <td>{{estudiante.responsable?.primer_nombre_responsable + ' ' + estudiante.responsable?.primer_apellido_responsable || 'N/A'}}</td>
+            <td>{{estudiante.grado?.nombre_grado || 'N/A'}}</td>
+            <td>{{estudiante.aula?.nombre_aula || 'N/A'}}</td>
             <td>
-              <button class="btn btn-secondary btn-sm">
-                <i class="fas fa-edit"></i>
-              </button>
-              <button class="btn btn-danger btn-sm ms-1">
-                <i class="fas fa-trash-alt"></i>
-              </button>
+             
+                <button
+                  class="btn btn-secondary btn-sm"
+                  (click)="onOpenEditStudent(estudiante.codigo_personal!)"
+                >
+                  <i class="fas fa-edit"></i>
+                </button>
+                <button
+                  class="btn btn-danger btn-sm ms-1"
+                  (click)="onDeleteStudent(estudiante.codigo_personal!)"
+                >
+                  <i class="fas fa-trash-alt"></i>
+                </button>
+              
             </td>
           </tr>
         </tbody>

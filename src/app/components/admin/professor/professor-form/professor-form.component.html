@@ -188,6 +188,17 @@
         </select>
         <div class="invalid-feedback">Campo requerido</div>
       </div>
+       <!--Seccion usuario-->
+       <div class="col-6">
+        <label for="users" class="form-label">Usuario <span class="danger">*</span></label>
+        <select class="form-select" aria-label="Users select" id="users" formControlName="usuario">
+          <option selected disabled value="">Seleccione un Usuario</option>
+          <option *ngFor="let user of users" [value]="user.id">{{user.nombreUsuario|titlecase}}</option>
+        </select>
+      </div>
+
+
+
       <!-- Action -->
       <div class="col-12">
         <div class="row">

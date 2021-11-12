@@ -27,6 +27,7 @@ export class ContentFormComponent implements OnInit {
   @ViewChild('form', { static: false }) form!: ElementRef<HTMLFormElement>;
 
   public classes!: Class[];
+  private archivoSeleccionado!:File;
 
   constructor(
     private fb: FormBuilder,
@@ -51,11 +52,15 @@ export class ContentFormComponent implements OnInit {
     }
   }
 
+  
+
+  
+
   onInitForm(): void {
     this.contentForm = this.fb.group({
       nombre_contenido: [null, Validators.required],
-      fecha_creacion: [null, Validators.required],
-      archivo: [''],
+     // fecha_creacion: [null, Validators.required],
+      archivo:[null, Validators.required],
       clase: ['', Validators.required],
     });
   }
@@ -91,7 +96,7 @@ export class ContentFormComponent implements OnInit {
 
         this.contentForm.patchValue({
           nombre_contenido: res.nombre_contenido,
-          fecha_creacion: fechaCrea,
+          //fecha_creacion: fechaCrea,
           archivo: '',
           clase: res.clase?.id || '',
         });
@@ -110,16 +115,21 @@ export class ContentFormComponent implements OnInit {
   onAction(): void {
     if (this.contentForm.valid) {
       const data = this.contentForm.value;
+      console.log(data)
       data.clase = Number(data.clase);
 
       const clase = this.classes.find((g) => g.id === data.clase) || null;
 
       data.clase = clase;
 
-      data.fecha_creacion = format(
+     
+
+      
+
+     /* data.fecha_creacion = format(
         new Date(`${data.fecha_creacion} 00:00:00`),
         'yyyy/MM/dd'
-      );
+      );*/
 
       switch (this.action) {
         case 'Guardar':
@@ -148,6 +158,19 @@ export class ContentFormComponent implements OnInit {
 
       this.form.nativeElement.classList.add('was-validated');
     }
+
+    const Toast = Swal.mixin({
+      toast: true,
+      showConfirmButton: false,
+      timer: 2500,
+      timerProgressBar: true,
+      position: 'top-end',
+    });
+
+    Toast.fire({
+      title: 'Verifique los campos requeridos',
+      icon: 'info',
+    });
   }
 
   async saveContent(data: Content) {

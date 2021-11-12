@@ -1,7 +1,7 @@
 <div class="layout">
   <div class="header"></div>
   <div class="layout">
-    <div class="sider" style="overflow-y: auto;">
+    <div class="sider" style="overflow-y: auto">
       <div class="logo" routerLink="/home">
         <i class="fas fa-home fs-1"></i>
       </div>
@@ -15,10 +15,6 @@
           <i class="fas fa-user-tie"></i> Profesores
         </li>
 
-        <li class="list-group-item list-group-item-dark" routerLink="students" routerLinkActive="active">
-          <i class="fas fa-user-graduate"></i> Estudiantes
-
-        </li>
         <li class="list-group-item list-group-item-dark" routerLink="grade" routerLinkActive="active">
           <i class="fas fa-user-graduate"></i> Grados
         </li>
@@ -31,19 +27,36 @@
         <li class="list-group-item list-group-item-dark" routerLink="class" routerLinkActive="active">
           <i class="fas fa-user-tie"></i> Clases
         </li>
-        <li class="list-group-item list-group-item-dark" routerLink="content" routerLinkActive="active">
-          <i class="fas fa-user-tie"></i> Contenidos
-        </li>
+
         <li class="list-group-item list-group-item-dark" routerLink="responsable" routerLinkActive="active">
-          <i class="fas fa-user-tie"></i>  Responsables
+          <i class="fas fa-user-tie"></i> Responsables
         </li>
       </ul>
 
+      <li class="list-group-item list-group-item-dark" routerLink="students" routerLinkActive="active">
+        <i class="fas fa-user-graduate"></i> Estudiantes
+      </li>
+
+    
+
+      <li class="list-group-item list-group-item-dark" routerLink="scors" routerLinkActive="active">
+        <i class="fas fa-user-tie"></i> Calificaciones
+      </li>
+
+      <li class="list-group-item list-group-item-dark" routerLink="content" routerLinkActive="active">
+        <i class="fas fa-user-tie"></i> Contenidos
+      </li>
+    
+      <li class="list-group-item list-group-item-dark" routerLink="enrollment" routerLinkActive="active">
+        <i class="fas fa-user-tie"></i> Matriculas
+      </li>
+      
     </div>
     <div class="content">
       <div class="inner-content">
         <router-outlet></router-outlet>
       </div>
     </div>
+  
   </div>
 </div>
