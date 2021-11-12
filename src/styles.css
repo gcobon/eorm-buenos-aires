@@ -82,7 +82,7 @@
 .sider {
   background: var(--bs-gray-dark);
   color: #fff !important;
-  line-height: 50px;
+  overflow-y: auto;
 }
 
 .logo {

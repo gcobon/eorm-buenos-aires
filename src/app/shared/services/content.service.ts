@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from './../../../environments/environment';
 import { Content } from '../models/content';
@@ -23,31 +23,62 @@ export class ContentService {
   //   return this.http.post<Content>(`${url_base}/contenidos/upload`, content);
   // }
 
-  async saveContent(content: Content) {
-    // return this.http.post<Content>(`${url_base}/contenidos/upload`, content);
+  // saveContent(
+  //   archivo: File,
+  //   idClase: string,
+  //   nombreContenido: string
+  // ): Observable<any> {
+  //   const httpOptions = {
+  //     headers: new HttpHeaders({
+  //       Authorization: `Bearer ${localStorage.getItem('token')}`,
+  //       'Content-Type': 'multipart/form-data',
+  //       Accept: '*/*',
+  //     }),
+  //   };
+
+  //   const formData = new FormData();
+
+  //   formData.append('file', archivo);
+  //   formData.append('id_clase', idClase);
+  //   formData.append('nombre_contenido', nombreContenido);
+
+  //   console.log({ archivo, idClase, nombreContenido });
+
+  //   return this.http.post<any>(
+  //     `${url_base}/contenidos/upload`,
+  //     formData,
+  //     httpOptions
+  //   );
+  // }
+
+  async saveContent(archivo: File, idClase: string, nombreContenido: string) {
+    const url = `${url_base}/contenidos/upload`;
+
+    const head = new Headers();
+    head.append('Authorization', `Bearer ${localStorage.getItem('token')}`);
+    head.append('Content-type', `multipart/form-data`);
+    head.append('Content-Disposition', `form-data`);
+    head.append('Accept', `*/*`);
+
+    const formData = new FormData();
+
+    formData.append('file', archivo);
+    formData.append('id_clase', idClase);
+    formData.append('nombre_contenido', nombreContenido);
+
+    console.log({ archivo, idClase, nombreContenido });
 
     try {
-      const url = `${url_base}/contenidos/upload`;
-
-      const formData = new FormData();
-
-      formData.append('file', content.archivo);
-      formData.append('id_clase', `${content.clase.id}`);
-      formData.append('nombre_contenido', content.nombre_contenido);
-
-      console.log(formData.get('id_clase'));
-      console.log(formData.get('file'));
-      console.log(formData.get('nombre_contenido'));
-
-      const resp = await fetch(url, {
+      const request = await fetch(url, {
         method: 'POST',
-        headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+        headers: head,
+        mode: 'cors',
         body: formData,
       });
 
-      const r = await resp.json();
+      const res = await request.json();
 
-      console.log(r);
+      console.log(request);
     } catch (error) {
       console.log(error);
     }

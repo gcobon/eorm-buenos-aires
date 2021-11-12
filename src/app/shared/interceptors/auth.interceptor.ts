@@ -20,10 +20,7 @@ export class AuthInterceptor implements HttpInterceptor {
   ): Observable<HttpEvent<unknown>> {
     const token = localStorage.getItem('token') || null;
 
-    const ContentType = [
-      'application/json',
-      
-    ];
+    const ContentType = ['application/json'];
 
     let req = request;
 
@@ -59,7 +56,7 @@ export class AuthInterceptor implements HttpInterceptor {
             Swal.fire({
               title: 'Error',
               text: `${error.status} ${error.error.message}`,
-              icon: 'error'
+              icon: 'error',
             });
             break;
         }
