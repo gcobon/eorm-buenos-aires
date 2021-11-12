@@ -1,0 +1,47 @@
+<div class="container-fluid">
+    <div class="row">
+      <div class="col mt-2">
+        <button class="btn btn-primary" routerLink="/admin/enrollment/enrollment-form">
+          Nueva Matricula
+        </button>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col mt-2">
+        <table class="table table-hover table-sm table-responsive-lg">
+          <thead class="table-dark">
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Fecha Matricula</th>
+              <th scope="col">Observaciones</th>
+              <th scope="col">Estudiante</th>
+              <th scope="col">Opciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let matricula of enrollment; let i = index">
+              <th scope="row">{{ i + 1 }}</th>
+              <td>
+                {{ matricula.fecha_matricula }}
+              </td>
+              <td>
+                {{ matricula.observaciones }}
+              </td>
+              
+              <td>{{matricula.estudiante?.primer_nombre_estudiante + ' ' + matricula.estudiante?.primer_apellido_estudiante || 'N/A'}}</td>
+  
+              <td>
+                <button class="btn btn-secondary btn-sm" (click)="onOpenEditEnrollment(matricula.id_matricula!)">
+                  <i class="fas fa-edit"></i>
+                </button>
+                <button class="btn btn-danger btn-sm ms-1" (click)="onDeleteEnrollment(matricula.id_matricula!)">
+                  <i class="fas fa-trash-alt"></i>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  

@@ -39,7 +39,7 @@ export class ResponsableListComponent implements OnInit {
   }
 
   onOpenEditResponsable(id_responsable: number) {
-    this.router.navigate(['/admin/responsables/responsables-form/', id_responsable]);
+    this.router.navigate(['/admin/responsable/responsable-form/', id_responsable]);
   }
 
   async onDeleteResponsable(id_responsable: number) {

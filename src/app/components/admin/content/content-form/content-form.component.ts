@@ -50,7 +50,7 @@ export class ContentFormComponent implements OnInit {
       this.title = 'Actualizar aula';
     }
   }
-
+  
   onInitForm(): void {
     this.contentForm = this.fb.group({
       nombre_contenido: [null, Validators.required],
@@ -81,7 +81,7 @@ export class ContentFormComponent implements OnInit {
 
         this.contentForm.patchValue({
           nombre_contenido: res.nombre_contenido,
-          fecha_creacion: fechaCrea,
+          //fecha_creacion: fechaCrea,
           archivo: '',
           clase: res.clase?.id || '',
         });
@@ -100,7 +100,7 @@ export class ContentFormComponent implements OnInit {
   onAction(): void {
     if (this.contentForm.valid) {
       const data = this.contentForm.value;
-
+      
       switch (this.action) {
         case 'Guardar':
           this.saveContent(
@@ -132,6 +132,19 @@ export class ContentFormComponent implements OnInit {
 
       this.form.nativeElement.classList.add('was-validated');
     }
+
+    const Toast = Swal.mixin({
+      toast: true,
+      showConfirmButton: false,
+      timer: 2500,
+      timerProgressBar: true,
+      position: 'top-end',
+    });
+
+    Toast.fire({
+      title: 'Verifique los campos requeridos',
+      icon: 'info',
+    });
   }
 
   saveContent(archivo: File, idClase: string, nombreContenido: string) {

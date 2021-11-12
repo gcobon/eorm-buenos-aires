@@ -60,7 +60,20 @@ const routes: Routes = [
         loadChildren: () =>
           import('./responsable/responsable.module').then((m) => m.ResponsableModule),
       },
-     
+
+      {
+        path: 'enrollment',
+        loadChildren: () =>
+          import('./enrollment/enrollment.module').then((m) => m.EnrollmentModule),
+      },
+
+      {
+        path: 'scors',
+        loadChildren: () =>
+          import('./scors/scors.module').then((m) => m.ScorsModule),
+      },
+
+         
     ],
   },
 ];

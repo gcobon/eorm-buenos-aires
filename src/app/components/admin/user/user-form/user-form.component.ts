@@ -159,6 +159,7 @@ export class UserFormComponent implements OnInit, OnDestroy {
       (user) => {
         this.userForm.patchValue({
           nombre_usuario: user.nombre,
+          //nombre_usuario: user.nombre,
         });
       },
       (error) => {

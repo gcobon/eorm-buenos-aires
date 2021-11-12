@@ -1,1 +1,221 @@
-<p>responsable-form works!</p>
+<div class="container">
+    <div class="row">
+      <div class="col-12 mt-5">
+        <h3>{{ title }}</h3>
+      </div>
+    </div>
+    <form
+      class="form needs-validation mt-3"
+      [formGroup]="responsableForm"
+      novalidate
+      (ngSubmit)="onAction()"
+      #form
+    >
+      <div class="row gy-4">
+        <!-- Primer nombre -->
+        <div class="col-3">
+          <label for="primer_nombre_responsable" class="form-label"
+            >Primer nombre <span class="danger">*</span></label
+          >
+          <input
+            type="text"
+            class="form-control"
+            formControlName="primer_nombre_responsable"
+            id="primer_nombre_responsable"
+            placeholder="primer_nombre"
+            autocomplete="off"
+            required
+          />
+          <div class="invalid-feedback">Campo requerido</div>
+        </div>
+        <!-- Segundo nombre -->
+        <div class="col-3">
+          <label for="segundo_nombre_responsable" class="form-label"
+            >Segundo nombre <span class="danger">*</span></label
+          >
+          <input
+            type="text"
+            class="form-control"
+            formControlName="segundo_nombre_responsable"
+            id="segundo_nombre_responsable"
+            placeholder="segundo_nombre"
+            autocomplete="off"
+            required
+          />
+          <div class="invalid-feedback">Campo requerido</div>
+        </div>
+        <!-- Primer apellido -->
+        <div class="col-3">
+          <label for="primer_apellido_responsable" class="form-label"
+            >Primer apellido <span class="danger">*</span></label
+          >
+          <input
+            type="text"
+            class="form-control"
+            formControlName="primer_apellido_responsable"
+            id="primer_apellido_responsable"
+            placeholder="primer_apellido"
+            autocomplete="off"
+            required
+          />
+          <div class="invalid-feedback">Campo requerido</div>
+        </div>
+        <!-- Segundo apellido -->
+        <div class="col-3">
+          <label for="segundo_apellido_responsable" class="form-label"
+            >Segundo apellido <span class="danger">*</span></label
+          >
+          <input
+            type="text"
+            class="form-control"
+            formControlName="segundo_apellido_responsable"
+            id="segundo_apellido_responsable"
+            placeholder="segundo_apellido"
+            autocomplete="off"
+            required
+          />
+          <div class="invalid-feedback">Campo requerido</div>
+        </div>
+        <!-- Dpi -->
+        <div class="col-3">
+          <label for="dpi_responsable" class="form-label"
+            >Número de CUI (DPI)<span class="danger">*</span></label
+          >
+          <input
+            type="text"
+            class="form-control"
+            formControlName="dpi_responsable"
+            id="dpi_responsable"
+            placeholder="Número de CUI (DPI)"
+            autocomplete="off"
+            required
+          />
+          <div class="invalid-feedback">Campo requerido</div>
+        </div>
+
+        <!-- Fecha nacimiento -->
+        <div class="col-6">
+            <label for="fechaNac" class="form-label"
+              >Fecha de nacimiento<span class="danger">*</span></label
+            >
+            <input
+              type="date"
+              class="form-control"
+              formControlName="fecha_nacimiento_responsable"
+              id="fechaNac"
+              required
+            />
+            <div class="invalid-feedback">Campo requerido</div>
+          </div>
+          <!-- Edad -->
+        <div class="col-6">
+            <label for="edad_responsable" class="form-label"
+              >Edad<span class="danger">*</span></label
+            >
+            <input
+              type="number"
+              class="form-control"
+              formControlName="edad_responsable"
+              id="edad_responsable"
+              placeholder="Edad"
+              min="18"
+              max="100"
+              required
+            />
+            <div class="invalid-feedback">Campo requerido</div>
+          </div>
+          <!-- Sexo -->
+          <div class="col-6">
+            <label for="sexo" class="form-label">Sexo</label>
+            <select
+              class="form-select"
+              aria-label="sexo_responsable"
+              formControlName="sexo_responsable"
+              id="sexo_responsable"
+              name="sexo"
+              required
+            >
+              <option selected disabled value="">Seleccione una opción</option>
+              <option value="Masculino">Masculino</option>
+              <option value="Fememino">Femenino</option>
+            </select>
+            <div class="invalid-feedback">Campo requerido</div>
+          </div>
+
+          <!-- Dirección -->
+        <div class="col-6">
+            <label for="direccion_responsable" class="form-label"
+              >Dirección<span class="danger">*</span></label
+            >
+            <input
+              type="text"
+              class="form-control"
+              formControlName="direccion_responsable"
+              id="direccion_responsable"
+              placeholder="Dirección"
+              autocomplete="off"
+              required
+            />
+            <div class="invalid-feedback">Campo requerido</div>
+          </div>
+          
+            <!-- Teléfono -->
+        <div class="col-3">
+          <label for="telefono_responsable" class="form-label"
+            >Teléfono<span class="danger">*</span></label
+          >
+          <input
+            type="text"
+            class="form-control"
+            formControlName="telefono_responsable"
+            id="telefono_responsable"
+            placeholder="Número de teléfono"
+            autocomplete="off"
+            required
+          />
+          <div class="invalid-feedback">Campo requerido</div>
+        </div>
+        
+        <!-- Email -->
+        <div class="col-6">
+          <label for="email_responsable" class="form-label"
+            >Email<span class="danger">*</span></label
+          >
+          <input
+            type="email"
+            class="form-control"
+            formControlName="email_responsable"
+            id="email_responsable"
+            placeholder="Email"
+            autocomplete="off"
+            required
+          />
+          <div class="invalid-feedback">Campo requerido</div>
+        </div>
+              <!-- Action -->
+        <div class="col-12">
+          <div class="row">
+            <div class="col-6">
+              <div class="d-grid">
+                <button
+                  type="button"
+                  class="btn btn-danger btn-lg"
+                  (click)="onCancel()"
+                >
+                  Cancelar
+                </button>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="d-grid">
+                <button type="submit" class="btn btn-primary btn-lg">
+                  {{ action }}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  

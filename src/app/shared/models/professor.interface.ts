@@ -1,4 +1,4 @@
-import { User } from '.';
+import { User } from ".";
 
 export class Professor {
   constructor(
@@ -14,6 +14,6 @@ export class Professor {
     public direccion_profesor?: string,
     public telefono_profesor?: string,
     public email_profesor?: string,
-    public usuario?: User
+    public usuario?:User
   ) {}
 }
