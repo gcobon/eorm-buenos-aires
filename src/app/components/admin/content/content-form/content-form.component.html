@@ -17,7 +17,7 @@
       <!--Archivo-->
       <div class="col-6">
         <label for="archivo" class="form-label">Archivo</label>
-        <input type="file" (change)="onLoadFile($event)" class="form-control" formControlName="archivo" id="archivo"
+        <input type="file" (change)="onLoadFile($event)" class="form-control" id="archivo"
           placeholder="Seleccione un archivo" />
         <div class="invalid-feedback">Campo requerido</div>
       </div>
@@ -25,7 +25,7 @@
       <!--Seccion clase-->
       <div class="col-6">
         <label for="clase" class="form-label">Clase <span class="danger">*</span></label>
-        <select class="form-select" aria-label="Clase select" id="clase" formControlName="clase">
+        <select class="form-select" aria-label="Clase select" id="clase" formControlName="clase" required>
           <option selected disabled value="">Seleccione un clase</option>
           <option *ngFor="let clase of classes" [value]="clase.id">{{clase.descripcion |titlecase}}</option>
         </select>

@@ -9,6 +9,7 @@ import {
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
@@ -48,10 +49,11 @@ export class AuthInterceptor implements HttpInterceptor {
           case 401:
             Swal.fire({
               title: 'Atención',
-              text: 'Usuario y/o contraseña incorrectos',
+              text: 'El usuario no pudo autenticarse',
               icon: 'warning',
             });
             break;
+
           default:
             Swal.fire({
               title: 'Error',

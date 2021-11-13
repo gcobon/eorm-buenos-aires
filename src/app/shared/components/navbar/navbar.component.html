@@ -1,0 +1,9 @@
+<nav class="navbar navbar-dark bg-gray-dark">
+  <div class="container-fluid">
+    <span class="navbar-brand"></span>
+    <span>{{usuario.sub |titlecase}}</span>
+    <a class="btn btn-secondary" (click)="logOut()">
+      <i class="fas fa-sign-out-alt"></i> Cerrar sesión
+    </a>
+  </div>
+</nav>
