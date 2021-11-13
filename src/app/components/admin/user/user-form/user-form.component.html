@@ -42,14 +42,14 @@
         <label class="form-check-label" for="admin">Admin</label>
       </div>
       <div class="form-check form-check-inline">
-        <input class="form-check-input" type="checkbox" id="student" value="estudiante"
-          [(ngModel)]="rolesCheck.estudiante" (ngModelChange)="updateRolSelected('estudiante')">
-        <label class="form-check-label" for="student">Profesor</label>
-      </div>
-      <div class="form-check form-check-inline">
         <input class="form-check-input" type="checkbox" id="prof" value="profesor"
           [(ngModel)]="rolesCheck.profesor" (ngModelChange)="updateRolSelected('profesor')">
-        <label class="form-check-label" for="prof">Estudiante</label>
+        <label class="form-check-label" for="prof">Profesor</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="checkbox" id="student" value="estudiante"
+          [(ngModel)]="rolesCheck.estudiante" (ngModelChange)="updateRolSelected('estudiante')">
+        <label class="form-check-label" for="student">Estudiante</label>
       </div>
       <div class="invalid-feedback">Debe seleccionar un estado</div>
     </div>
