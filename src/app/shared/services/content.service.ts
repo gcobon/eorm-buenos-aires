@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from './../../../environments/environment';
 import { Content } from '../models/content';
+import Swal from 'sweetalert2';
 
 const url_base = environment.url_base;
 
@@ -19,68 +20,51 @@ export class ContentService {
     return this.http.get<Content>(`${url_base}/contenidos/buscar/${id}`);
   }
 
-  // saveContent(content: Content): Observable<Content> {
-  //   return this.http.post<Content>(`${url_base}/contenidos/upload`, content);
-  // }
-
-  // saveContent(
-  //   archivo: File,
-  //   idClase: string,
-  //   nombreContenido: string
-  // ): Observable<any> {
-  //   const httpOptions = {
-  //     headers: new HttpHeaders({
-  //       Authorization: `Bearer ${localStorage.getItem('token')}`,
-  //       'Content-Type': 'multipart/form-data',
-  //       Accept: '*/*',
-  //     }),
-  //   };
-
-  //   const formData = new FormData();
-
-  //   formData.append('file', archivo);
-  //   formData.append('id_clase', idClase);
-  //   formData.append('nombre_contenido', nombreContenido);
-
-  //   console.log({ archivo, idClase, nombreContenido });
-
-  //   return this.http.post<any>(
-  //     `${url_base}/contenidos/upload`,
-  //     formData,
-  //     httpOptions
-  //   );
-  // }
-
   async saveContent(archivo: File, idClase: string, nombreContenido: string) {
-    const url = `${url_base}/contenidos/upload`;
-
-    const head = new Headers();
-    head.append('Authorization', `Bearer ${localStorage.getItem('token')}`);
-    head.append('Content-type', `multipart/form-data`);
-    head.append('Content-Disposition', `form-data`);
-    head.append('Accept', `*/*`);
-
-    const formData = new FormData();
-
-    formData.append('file', archivo);
-    formData.append('id_clase', idClase);
-    formData.append('nombre_contenido', nombreContenido);
-
-    console.log({ archivo, idClase, nombreContenido });
-
     try {
-      const request = await fetch(url, {
+      const url = `${url_base}/contenidos/upload`;
+
+      const headers = new Headers();
+      headers.append(
+        'Authorization',
+        `Bearer ${localStorage.getItem('token')}`
+      );
+      headers.append('Content-Type', `multipart/form-data`);
+      headers.append('Content-Disposition', `form-data`);
+      headers.append('Accept', `*/*`);
+
+      const formData = new FormData();
+
+      formData.append('file', archivo);
+      formData.append('id_clase', idClase);
+      formData.append('nombre_contenido', nombreContenido);
+
+      console.log({ archivo, idClase, nombreContenido });
+
+      const resp = await fetch(url, {
         method: 'POST',
-        headers: head,
-        mode: 'cors',
+        headers: headers,
         body: formData,
+        mode: 'no-cors',
       });
 
-      const res = await request.json();
+      const res = await resp.json();
 
-      console.log(request);
+      console.log(res);
+
+      Swal.fire({
+        title: 'Correcto',
+        text: 'Contenido subido correctamente',
+        icon: 'success',
+      });
     } catch (error) {
       console.log(error);
+
+      Swal.fire({
+        title: 'Error',
+        text: 'Algo salió mal',
+        icon: 'error',
+      });
     }
   }
 

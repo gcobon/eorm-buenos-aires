@@ -1,8 +1,10 @@
 <div class="layout">
-  <div class="header"></div>
+  <div class="header">
+    <app-navbar></app-navbar>
+  </div>
   <div class="layout">
     <div class="sider">
-      <div class="logo" routerLink="/home">
+      <div class="logo mb-3 mt-3" routerLink="/home">
         <i class="fas fa-home fs-1"></i>
       </div>
 
@@ -16,20 +18,20 @@
         </li>
 
         <li class="list-group-item list-group-item-dark" routerLink="grade" routerLinkActive="active">
-          <i class="fas fa-user-graduate"></i> Grados
+          <i class="fas fa-spell-check"></i> Grados
         </li>
         <li class="list-group-item list-group-item-dark" routerLink="classroom" routerLinkActive="active">
-          <i class="fas fa-user-tie"></i> Aulas
+          <i class="fas fa-vector-square"></i> Aulas
         </li>
         <li class="list-group-item list-group-item-dark" routerLink="course" routerLinkActive="active">
-          <i class="fas fa-user-tie"></i> Cursos
+          <i class="fas fa-book"></i> Cursos
         </li>
         <li class="list-group-item list-group-item-dark" routerLink="class" routerLinkActive="active">
-          <i class="fas fa-user-tie"></i> Clases
+          <i class="fas fa-edit"></i> Clases
         </li>
 
         <li class="list-group-item list-group-item-dark" routerLink="responsable" routerLinkActive="active">
-          <i class="fas fa-user-tie"></i> Responsables
+          <i class="fas fa-users"></i> Responsables
         </li>
       </ul>
 
@@ -37,26 +39,24 @@
         <i class="fas fa-user-graduate"></i> Estudiantes
       </li>
 
-    
-
       <li class="list-group-item list-group-item-dark" routerLink="scors" routerLinkActive="active">
-        <i class="fas fa-user-tie"></i> Calificaciones
+        <i class="fas fa-tasks"></i> Calificaciones
       </li>
 
       <li class="list-group-item list-group-item-dark" routerLink="content" routerLinkActive="active">
-        <i class="fas fa-user-tie"></i> Contenidos
+        <i class="fas fa-cloud-upload-alt"></i> Contenidos
       </li>
-    
+
       <li class="list-group-item list-group-item-dark" routerLink="enrollment" routerLinkActive="active">
-        <i class="fas fa-user-tie"></i> Matriculas
+        <i class="fas fa-id-card"></i> Matriculas
       </li>
-      
+
     </div>
     <div class="content">
-      <div class="inner-content">
+      <div class="inner-content" data-bs-spy="scroll">
         <router-outlet></router-outlet>
       </div>
     </div>
-  
+
   </div>
 </div>

@@ -50,11 +50,10 @@ export class ContentFormComponent implements OnInit {
       this.title = 'Actualizar aula';
     }
   }
-  
+
   onInitForm(): void {
     this.contentForm = this.fb.group({
       nombre_contenido: [null, Validators.required],
-      archivo: [''],
       clase: ['', Validators.required],
     });
   }
@@ -100,7 +99,7 @@ export class ContentFormComponent implements OnInit {
   onAction(): void {
     if (this.contentForm.valid) {
       const data = this.contentForm.value;
-      
+
       switch (this.action) {
         case 'Guardar':
           this.saveContent(
@@ -131,47 +130,28 @@ export class ContentFormComponent implements OnInit {
       }
 
       this.form.nativeElement.classList.add('was-validated');
+
+      const Toast = Swal.mixin({
+        toast: true,
+        showConfirmButton: false,
+        timer: 2500,
+        timerProgressBar: true,
+        position: 'top-end',
+      });
+
+      Toast.fire({
+        title: 'Verifique los campos requeridos',
+        icon: 'info',
+      });
     }
-
-    const Toast = Swal.mixin({
-      toast: true,
-      showConfirmButton: false,
-      timer: 2500,
-      timerProgressBar: true,
-      position: 'top-end',
-    });
-
-    Toast.fire({
-      title: 'Verifique los campos requeridos',
-      icon: 'info',
-    });
   }
 
-  saveContent(archivo: File, idClase: string, nombreContenido: string) {
-    this.contentService.saveContent(archivo, idClase, nombreContenido);
-    // .subscribe(
-    //   (res) => {
-    //     console.log(res);
-
-    //     if (res) {
-    //       Swal.fire({
-    //         title: 'Correcto',
-    //         text: 'Contenido guardado correctamente',
-    //         icon: 'success',
-    //       });
-
-    //       this.router.navigate(['/admin/content/content-list']);
-    //     }
-    //   },
-    //   (error) => {
-    //     console.log(error);
-    //     Swal.fire({
-    //       title: 'Error',
-    //       text: 'Algo salió mal',
-    //       icon: 'error',
-    //     });
-    //   }
-    // );
+  async saveContent(
+    archivo: File,
+    idClase: string,
+    nombreContenido: string
+  ): Promise<void> {
+    await this.contentService.saveContent(archivo, idClase, nombreContenido);
   }
 
   updatedContent(data: Content): void {

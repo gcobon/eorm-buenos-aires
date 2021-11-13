@@ -1,4 +1,10 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -9,22 +15,21 @@ import {
 import { ActivatedRoute, Router } from '@angular/router';
 import { format } from 'date-fns';
 import Swal from 'sweetalert2';
-import { filter } from 'rxjs/operators';
+import { debounceTime, filter, tap } from 'rxjs/operators';
 import { Scors } from 'src/app/shared/models/scors';
 import { ScorsService } from 'src/app/shared/services/scors.service';
 import { Students } from 'src/app/shared/models/students';
 import { StudentService } from 'src/app/shared/services/student.service';
 import { Course } from 'src/app/shared/models/course';
 import { CourseService } from 'src/app/shared/services/course-service';
-
-
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-scors-form',
   templateUrl: './scors-form.component.html',
-  styleUrls: ['./scors-form.component.css']
+  styleUrls: ['./scors-form.component.css'],
 })
-export class ScorsFormComponent implements OnInit {
+export class ScorsFormComponent implements OnInit, OnDestroy {
   public today = new Date().toString();
   public scorsForm!: FormGroup;
   public action: 'Guardar' | 'Actualizar' = 'Guardar';
@@ -34,34 +39,38 @@ export class ScorsFormComponent implements OnInit {
 
   public students!: Students[];
   public courses!: Course[];
-  public promedioFinal:number=0;
+  public promedioFinal: number = 0;
+  private subs = new Subscription();
 
-  
   constructor(
     private fb: FormBuilder,
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private scorsService: ScorsService,
     private studentService: StudentService,
-    private courseService: CourseService,
-  
+    private courseService: CourseService
   ) {
     this.id = this.activatedRoute.snapshot.params.id;
     this.onInitForm();
+  }
 
-   }
+  ngOnDestroy(): void {
+    this.subs.unsubscribe();
+  }
 
   ngOnInit(): void {
     this.getStudents();
     this.getCourses();
+    this.subsNote1();
+    this.subsNote2();
+    this.subsNote3();
+    this.subsNote4();
 
-    
     if (this.id) {
       this.getOneScors();
       this.action = 'Actualizar';
       this.title = 'Actualizar clase';
     }
-
   }
 
   onInitForm(): void {
@@ -73,10 +82,8 @@ export class ScorsFormComponent implements OnInit {
       promedio_final: [null, Validators.required],
       estudiante: ['', Validators.required],
       curso: ['', Validators.required],
-      
     });
   }
-
 
   getStudents(): void {
     this.studentService.getStudents().subscribe((res) => {
@@ -90,34 +97,17 @@ export class ScorsFormComponent implements OnInit {
     });
   }
 
-  
   getOneScors(): void {
     this.scorsService.getOneScors(this.id).subscribe(
       (res) => {
-        /*  const fechaArray = res.fecha_nacimiento_profesor?.split('/');
-
-        const d = fechaArray![2];
-        const m = fechaArray![1];
-        const y = fechaArray![0];
-
-        const fechaNac = format(
-          new Date(`${y}-${m}-${d} 00:00:00`),
-          'yyyy-MM-dd'
-        );*/
-
         this.scorsForm.patchValue({
           nota_bim1: res.nota_bim1,
           nota_bim2: res.nota_bim2,
           nota_bim3: res.nota_bim3,
           nota_bim4: res.nota_bim4,
-          promedio_final:res.promedio_final,
-          estudiante:res.estudiante?.codigo_personal || '',
+          promedio_final: res.promedio_final,
+          estudiante: res.estudiante?.codigo_personal || '',
           curso: res.curso?.id || '',
-
-          
-         
-
-
         });
       },
       (error) => {
@@ -136,7 +126,6 @@ export class ScorsFormComponent implements OnInit {
       const data = this.scorsForm.value;
       data.estudiante = String(data.estudiante);
       data.curso = Number(data.curso);
-      
 
       const student =
         this.students.find((e) => e.codigo_personal == data.estudiante) || null;
@@ -145,7 +134,6 @@ export class ScorsFormComponent implements OnInit {
       const course = this.courses.find((c) => c.id === data.curso) || null;
       data.curso = course;
 
-      
       /*data.fecha_nacimiento_profesor = format(
         new Date(`${data.fecha_nacimiento_profesor} 00:00:00`),
         'yyyy/MM/dd'
@@ -175,19 +163,20 @@ export class ScorsFormComponent implements OnInit {
       }
 
       this.form.nativeElement.classList.add('was-validated');
-    }
-    const Toast = Swal.mixin({
-      toast: true,
-      showConfirmButton: false,
-      timer: 2500,
-      timerProgressBar: true,
-      position: 'top-end',
-    });
 
-    Toast.fire({
-      title: 'Verifique los campos requeridos',
-      icon: 'info',
-    });
+      const Toast = Swal.mixin({
+        toast: true,
+        showConfirmButton: false,
+        timer: 2500,
+        timerProgressBar: true,
+        position: 'top-end',
+      });
+
+      Toast.fire({
+        title: 'Verifique los campos requeridos',
+        icon: 'info',
+      });
+    }
   }
 
   saveScors(data: Scors): void {
@@ -253,8 +242,84 @@ export class ScorsFormComponent implements OnInit {
     }
   }
 
+  subsNote1(): void {
+    this.subs.add(
+      this.scorsForm
+        .get('nota_bim1')
+        ?.valueChanges.pipe(
+          filter((value) => !['', null].includes(value)),
+          debounceTime(800),
+          tap((value) => {
+            console.log('notaBim1: ', value);
 
+            this.calculateAverage();
+          })
+        )
+        .subscribe()
+    );
+  }
 
+  subsNote2(): void {
+    this.subs.add(
+      this.scorsForm
+        .get('nota_bim2')
+        ?.valueChanges.pipe(
+          filter((value) => !['', null].includes(value)),
+          debounceTime(800),
+          tap((value) => {
+            console.log('notaBim2: ', value);
 
+            this.calculateAverage();
+          })
+        )
+        .subscribe()
+    );
+  }
 
+  subsNote3(): void {
+    this.subs.add(
+      this.scorsForm
+        .get('nota_bim3')
+        ?.valueChanges.pipe(
+          filter((value) => !['', null].includes(value)),
+          debounceTime(800),
+          tap((value) => {
+            console.log('notaBim3: ', value);
+
+            this.calculateAverage();
+          })
+        )
+        .subscribe()
+    );
+  }
+
+  subsNote4(): void {
+    this.subs.add(
+      this.scorsForm
+        .get('nota_bim4')
+        ?.valueChanges.pipe(
+          filter((value) => !['', null].includes(value)),
+          debounceTime(800),
+          tap((value) => {
+            console.log('notaBim4: ', value);
+
+            this.calculateAverage();
+          })
+        )
+        .subscribe()
+    );
+  }
+
+  /* Calcula el promedio */
+  calculateAverage(): void {
+    const note1: number = Number(this.scorsForm.get('nota_bim1')?.value) || 0;
+    const note2: number = Number(this.scorsForm.get('nota_bim2')?.value) || 0;
+    const note3: number = Number(this.scorsForm.get('nota_bim3')?.value) || 0;
+    const note4: number = Number(this.scorsForm.get('nota_bim4')?.value) || 0;
+
+    const promedio = (note1 + note2 + note3 + note4) / 4;
+
+    this.scorsForm.get('promedio_final')?.setValue(promedio.toFixed(2));
+    this.scorsForm.get('promedio_final')?.updateValueAndValidity();
+  }
 }
